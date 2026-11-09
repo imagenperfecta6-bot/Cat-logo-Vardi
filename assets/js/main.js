@@ -146,16 +146,19 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="work__body">
         <div class="work__tags"><span class="tag-brand">${esc(w.brandName)}</span><span class="tag-tech">${esc(w.technique)}</span></div>
         <h3>${esc(w.name)}</h3>
-        <p class="work__meta">REF ${esc(w.ref)}${w.qty ? ` · <b>${fmt(w.qty)}</b> und.` : ""}</p>
+        <p class="work__meta">REF ${esc(w.ref)}</p>
         <button class="btn btn--outline btn--sm" data-work-add="${w.id}">🔁 Volver a pedir</button>
       </div>
     </article>`;
 
   const renderWorks = () => {
     const grid = $("#workGrid"); if (!grid) return;
-    const rank = (w) => (w.img && !w.refPhoto ? 0 : w.img ? 1 : 2);
+    // A-Z por nombre; el cuaderno de Flotas siempre de cuarto (pedido del cliente)
+    const PIN_ID = "w-flotas-cuaderno", PIN_POS = 3;
     const list = WORKS_LIST.filter((w) => workState.brand === "all" || w.brand === workState.brand)
-      .map((w, i) => [w, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map((x) => x[0]);
+      .slice().sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
+    const pi = list.findIndex((w) => w.id === PIN_ID);
+    if (pi > -1) { const [p] = list.splice(pi, 1); list.splice(Math.min(PIN_POS, list.length), 0, p); }
     grid.innerHTML = list.slice(0, workState.shown).map(workCard).join("");
     const more = $("#workMore");
     more.hidden = list.length <= workState.shown;
@@ -201,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#wmTitle").textContent = w.name;
     $("#wmRows").innerHTML = [
       ["Referencia", w.ref], ["Técnica", w.technique], ["Detalle de marcación", w.detail], ["Colores", w.colors],
-      ["Unidades producidas", w.qty ? fmt(w.qty) : ""],
     ].filter((r) => r[1]).map((r) => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("");
     $("#wmNote").hidden = !w.refPhoto;
     const sheet = $("#wmSheet");
