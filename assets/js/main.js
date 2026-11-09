@@ -90,6 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const restart = () => { clearInterval(heroT); heroT = setInterval(() => go(cur + 1), 4200); };
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) restart();
 
+  // franja de logos de las marcas con las que hemos trabajado (duplicada para el loop infinito)
+  const track = $("#logoTrack");
+  if (track) {
+    const logos = BRANDS.map((b) => `<a href="${b.url}" target="_blank" rel="noopener" title="${esc(b.name)}"><img src="${b.logo}" alt="${esc(b.name)}" />${b.logoLabel ? `<span class="logo-label">${b.logoLabel}</span>` : ""}</a>`).join("");
+    track.innerHTML = logos + logos;
+  }
+
 
   /* ------------------------------ marcas ------------------------------ */
   const countFor = (brandId) => PRODUCTS.filter((p) => p.brands.includes(brandId)).length;
@@ -136,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalUnits = WORKS_LIST.reduce((s, w) => s + (w.qty || 0), 0);
   if ($("#workSummary")) $("#workSummary").innerHTML = `<b>${WORKS_LIST.length}</b> productos marcados · <b>${fmt(totalUnits)}</b> unidades entregadas · <b>${new Set(WORKS_LIST.map((w) => w.technique)).size}</b> técnicas de marcación`;
 
-  const mediaBadge = (w) => { const n = [w.img, ...(w.gallery || []), ...(w.montajes || [])].filter(Boolean).length; return (n > 1 || w.video) ? `<span class="work__media">${n > 1 ? `📷 ${n}` : ""}${w.video ? `${n > 1 ? " · " : ""}▶ Video` : ""}</span>` : ""; };
+  const mediaBadge = (w) => { const n = [w.img, ...(w.gallery || [])].filter(Boolean).length; return (n > 1 || w.video) ? `<span class="work__media">${n > 1 ? `📷 ${n}` : ""}${w.video ? `${n > 1 ? " · " : ""}▶ Video` : ""}</span>` : ""; };
   const workCard = (w) => `<article class="work">
       <button class="work__img${w.img ? "" : " work__img--ph"}${w.fit === "cover" ? " is-cover" : ""}" data-work-open="${w.id}" aria-label="Ver ${esc(w.name)}">
         ${w.img ? `<img src="${workImg(w)}" alt="${esc(w.name)}" loading="lazy" />` : `<span class="ph-brand">${esc(w.brandName)}</span><span class="ph-tech">${esc(w.technique)}</span><span class="ph-note">Montaje por cargar</span>`}
@@ -196,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const w = workById(id); wmCurrent = w;
     const media = [w.img, ...(w.gallery || [])].filter(Boolean).map((f) => ({ type: "img", src: `assets/img/trabajos/${f}` }))
       .concat(w.video ? [{ type: "video", src: `assets/img/trabajos/${w.video}`, poster: `assets/img/trabajos/${w.video.replace(/.mp4$/, ".jpg")}` }] : [])
-      .concat((w.montajes || []).map((f) => ({ type: "img", src: `assets/img/trabajos/montajes/${f}` })));
+      ; // las fichas de montaje ya no se muestran (repetían la foto y traían el número de PI)
     wmMedia = media;
     showMedia(0);
     $("#wmThumbs").innerHTML = media.length > 1 ? media.map((m, i) => `<button data-wm-i="${i}" class="${i ? "" : "is-active"}${m.type === "video" ? " is-video" : ""}" aria-label="${m.type === "video" ? "Ver video" : "Ver foto " + (i + 1)}"><img src="${m.type === "video" ? m.poster : m.src}" alt="" /></button>`).join("") : "";
