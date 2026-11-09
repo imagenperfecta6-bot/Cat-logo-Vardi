@@ -531,3 +531,26 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   observe();
 });
+
+/* Contadores de la portada (+25, +20, +5.000) */
+(() => {
+  const els = document.querySelectorAll("[data-count]");
+  if (!els.length) return;
+  const fmt = (n) => n.toLocaleString("es-CO");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const run = (el) => {
+    const end = Number(el.dataset.count);
+    if (reduce) { el.textContent = fmt(end); return; }
+    const dur = 1600, t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(end * e));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    el.textContent = "0";
+    requestAnimationFrame(step);
+  };
+  if (!("IntersectionObserver" in window)) { els.forEach(run); return; }
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { run(en.target); io.unobserve(en.target); } }), { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+})();
