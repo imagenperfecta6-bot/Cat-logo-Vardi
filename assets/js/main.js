@@ -10,13 +10,13 @@ const ADVISORS = [
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------------------------------------------------
-     ENTRADA (splash): el carro cruza la pantalla (sedán → camioneta → camión) y al
-     llegar al borde derecho la cortina se abre. Tocar = saltar; sin animación si el
-     visitante pidió reducir movimiento.
+     ENTRADA (splash): el video de los vehículos entra deslizándose, se reproduce una vez y
+     al terminar la cortina se abre. Tocar = saltar; sin animación si el visitante pidió
+     reducir movimiento.
      --------------------------------------------------------------------- */
   (function initSplash() {
     const splash = document.getElementById("splash");
-    const car = document.getElementById("splashCar");
+    const video = document.getElementById("splashVideo");
     if (!splash) return;
     let hidden = false;
     const hideSplash = () => {
@@ -24,12 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
       hidden = true;
       document.body.classList.remove("splash-active");
       splash.classList.add("is-leaving");
-      setTimeout(() => splash.classList.add("is-hidden"), 600);
+      setTimeout(() => { splash.classList.add("is-hidden"); if (video) video.pause(); }, 700);
     };
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { splash.classList.add("is-hidden"); document.body.classList.remove("splash-active"); return; }
-    // solo cuenta el fin del recorrido del carro (no el de las animaciones internas)
-    if (car) car.addEventListener("animationend", (e) => { if (e.target === car) hideSplash(); });
-    const fallback = setTimeout(hideSplash, 7500);
+    // La entrada dura lo que dura el video (~5 s) aunque el navegador lo pause o lo retrase;
+    // si ni siquiera deja reproducir (autoplay bloqueado), se abre enseguida.
+    const total = setTimeout(hideSplash, 6200);
+    if (video) {
+      video.addEventListener("ended", () => setTimeout(hideSplash, 250));
+      video.addEventListener("pause", () => { if (!hidden && !video.ended) video.play().catch(() => {}); });
+      const p = video.play();
+      if (p && p.catch) p.catch((err) => { if (err && err.name === "NotAllowedError") { clearTimeout(total); setTimeout(hideSplash, 2200); } });
+    }
+    const fallback = total;
     splash.addEventListener("click", () => { clearTimeout(fallback); hideSplash(); });
   })();
 
