@@ -9,6 +9,30 @@ const ADVISORS = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+  /* ---------------------------------------------------------------------
+     ENTRADA (splash): el carro cruza la pantalla (sedán → camioneta → camión) y al
+     llegar al borde derecho la cortina se abre. Tocar = saltar; sin animación si el
+     visitante pidió reducir movimiento.
+     --------------------------------------------------------------------- */
+  (function initSplash() {
+    const splash = document.getElementById("splash");
+    const car = document.getElementById("splashCar");
+    if (!splash) return;
+    let hidden = false;
+    const hideSplash = () => {
+      if (hidden) return;
+      hidden = true;
+      document.body.classList.remove("splash-active");
+      splash.classList.add("is-leaving");
+      setTimeout(() => splash.classList.add("is-hidden"), 600);
+    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { splash.classList.add("is-hidden"); document.body.classList.remove("splash-active"); return; }
+    // solo cuenta el fin del recorrido del carro (no el de las animaciones internas)
+    if (car) car.addEventListener("animationend", (e) => { if (e.target === car) hideSplash(); });
+    const fallback = setTimeout(hideSplash, 7500);
+    splash.addEventListener("click", () => { clearTimeout(fallback); hideSplash(); });
+  })();
+
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
