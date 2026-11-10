@@ -143,6 +143,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalUnits = WORKS_LIST.reduce((s, w) => s + (w.qty || 0), 0);
   if ($("#workSummary")) $("#workSummary").innerHTML = `<b>${WORKS_LIST.length}</b> productos marcados · <b>${fmt(totalUnits)}</b> unidades entregadas · <b>${new Set(WORKS_LIST.map((w) => w.technique)).size}</b> técnicas de marcación`;
 
+  /* selector de cantidad a cotizar (mínimo 20): − 20 + · atajos · Agregar al carrito */
+  const qpickHTML = (kind, id, min, modal) => {
+    const chips = [min, ...[40, 100, 200].filter((n) => n > min)];
+    return `<div class="qpick" data-qkind="${kind}" data-qid="${id}" data-qmin="${min}"${modal ? ' data-qmodal="1"' : ""}>
+      <span class="qpick__lbl">Cantidad a cotizar</span>
+      <div class="qpick__box">
+        <button type="button" data-qdec aria-label="Menos">−</button>
+        <input type="number" inputmode="numeric" min="${min}" step="1" value="${min}" data-qval aria-label="Cantidad a cotizar" />
+        <button type="button" data-qinc aria-label="Más">+</button>
+      </div>
+      <div class="qpick__chips">${chips.map((n) => `<button type="button" class="qchip${n === min ? " is-on" : ""}" data-qchip="${n}">${n}</button>`).join("")}</div>
+      <button type="button" class="btn btn--navy qpick__add" data-qadd>Agregar al carrito</button>
+    </div>`;
+  };
+
   const mediaBadge = (w) => { const n = [w.img, ...(w.gallery || [])].filter(Boolean).length; return (n > 1 || w.video) ? `<span class="work__media">${n > 1 ? `📷 ${n}` : ""}${w.video ? `${n > 1 ? " · " : ""}▶ Video` : ""}</span>` : ""; };
   const workCard = (w) => `<article class="work">
       <button class="work__img${w.img ? "" : " work__img--ph"}${w.fit === "cover" ? " is-cover" : ""}" data-work-open="${w.id}" aria-label="Ver ${esc(w.name)}">
@@ -154,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="work__tags"><span class="tag-brand">${esc(w.brandName)}</span><span class="tag-tech">${esc(w.technique)}</span></div>
         <h3>${esc(w.name)}</h3>
         <p class="work__meta">REF ${esc(w.ref)}</p>
-        <button class="btn btn--outline btn--sm" data-work-add="${w.id}">🔁 Volver a pedir</button>
+        ${qpickHTML("work", w.id, DEFAULT_MIN_QTY)}
       </div>
     </article>`;
 
@@ -181,8 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#workFilters").addEventListener("click", (e) => { const b = e.target.closest("[data-wbrand]"); if (!b) return; workState.brand = b.dataset.wbrand; workState.shown = 12; renderWorks(); });
     $("#workMore").addEventListener("click", () => { workState.shown += 12; renderWorks(); });
     $("#workGrid").addEventListener("click", (e) => {
-      const add = e.target.closest("[data-work-add]");
-      if (add) { addLine("work", add.dataset.workAdd, "work"); add.textContent = "✓ Agregado"; setTimeout(() => { add.textContent = "🔁 Volver a pedir"; }, 1400); return; }
+      if (qpickClick(e)) return;
       const open = e.target.closest("[data-work-open]");
       if (open) openWork(open.dataset.workOpen);
     });
@@ -217,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Referencia", w.ref], ["Técnica", w.technique], ["Detalle de marcación", w.detail], ["Colores", w.colors],
     ].filter((r) => r[1]).map((r) => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("");
     $("#wmNote").hidden = !w.refPhoto;
+    $("#wmQ").innerHTML = qpickHTML("work", w.id, DEFAULT_MIN_QTY, true);
     const sheet = $("#wmSheet");
     sheet.hidden = !w.cp; if (w.cp) sheet.href = CATAPROM_URL + w.cp;
     openModal($("#workModal"));
@@ -226,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const b = e.target.closest("[data-wm-i]"); if (!b) return;
       showMedia(+b.dataset.wmI);
     });
-    $("#wmAdd").addEventListener("click", () => { if (!wmCurrent) return; addLine("work", wmCurrent.id, "work"); closeModal($("#workModal")); });
+    $("#workModal").addEventListener("click", (e) => { qpickClick(e); });
   }
 
   /* ------------------------------ filtros ------------------------------ */
@@ -271,7 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3>${esc(p.name)}</h3>
           <p class="product__why">${esc(p.why)}</p>
           <div class="swatches">${swatchesHTML(p.colors)}</div>
-          <div class="product__foot"><button class="btn btn--navy" data-add="${p.id}">+ Agregar</button></div>
+          ${p.sizes ? `<div class="sizes"><span>Tallas</span>${p.sizes.map((s) => `<b>${esc(s)}</b>`).join("")}</div>` : ""}
+          ${qpickHTML("product", p.id, minQty(p))}
         </div>
       </article>`;
     }).join("");
@@ -309,11 +325,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const save = () => localStorage.setItem(CART_KEY, JSON.stringify(cart));
   const keyOf = (type, id, brand) => `${type}:${id}:${brand}`;
 
-  const addLine = (type, id, brand) => {
+  const addLine = (type, id, brand, qty) => {
     const item = itemOf({ type, id });
     const key = keyOf(type, id, brand);
     const ex = cart.find((l) => l.key === key);
-    const step = type === "product" ? minQty(item) : DEFAULT_MIN_QTY;
+    const step = qty || (type === "product" ? minQty(item) : DEFAULT_MIN_QTY);
     if (ex) ex.qty += step;
     else cart.push({ key, type, id, brand, qty: step });
     save(); renderCart();
@@ -398,15 +414,33 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.addEventListener("click", closeDrawer);
 
   /* agregar desde tarjetas */
-  $("#productGrid").addEventListener("click", (e) => {
-    const add = e.target.closest("[data-add]");
-    if (add) {
-      const p = productById(add.dataset.add);
-      addLine("product", p.id, "");
-      add.classList.add("is-added"); add.textContent = "✓ Agregado";
-      setTimeout(() => { add.classList.remove("is-added"); add.textContent = "+ Agregar"; }, 1400);
-      return;
+  // selector de cantidad (tarjetas y ventanas): − / + / atajos / agregar, siempre desde el mínimo (20)
+  const qpickClick = (e) => {
+    const q = e.target.closest(".qpick"); if (!q) return false;
+    const min = +q.dataset.qmin, inp = q.querySelector("[data-qval]");
+    const cur = () => Math.max(min, parseInt(inp.value, 10) || min);
+    const set = (v) => { inp.value = v; q.querySelectorAll(".qchip").forEach((c) => c.classList.toggle("is-on", +c.dataset.qchip === v)); };
+    if (e.target.closest("[data-qdec]")) set(Math.max(min, cur() - min));
+    else if (e.target.closest("[data-qinc]")) set(cur() + min);
+    else if (e.target.closest("[data-qchip]")) set(+e.target.closest("[data-qchip]").dataset.qchip);
+    else if (e.target.closest("[data-qadd]")) {
+      const btn = e.target.closest("[data-qadd]"), n = cur();
+      set(n);
+      addLine(q.dataset.qkind, q.dataset.qid, q.dataset.qkind === "work" ? "work" : "", n);
+      if (q.dataset.qmodal) { closeModal(q.closest(".modal")); return true; }
+      btn.classList.add("is-added"); btn.textContent = "✓ Agregado";
+      setTimeout(() => { btn.classList.remove("is-added"); btn.textContent = "Agregar al carrito"; }, 1400);
     }
+    return true;
+  };
+  document.addEventListener("change", (e) => {
+    if (!e.target.matches(".qpick [data-qval]")) return;
+    const q = e.target.closest(".qpick"), min = +q.dataset.qmin, v = parseInt(e.target.value, 10);
+    if (!(v >= min)) { e.target.value = min; showToast(`La cantidad mínima es ${min} unidades.`); }
+    q.querySelectorAll(".qchip").forEach((c) => c.classList.toggle("is-on", +c.dataset.qchip === +e.target.value));
+  });
+  $("#productGrid").addEventListener("click", (e) => {
+    if (qpickClick(e)) return;
     const open = e.target.closest("[data-open]");
     if (open) openProduct(open.dataset.open);
   });
@@ -440,13 +474,10 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#pmBrandSel").innerHTML = brandOptions(p.brands, defaultBrand(p.brands));
     $("#pmSheet").hidden = !p.cp; if (p.cp) $("#pmSheet").href = CATAPROM_URL + p.cp;
     $("#pmColors").parentElement.hidden = !p.colors;
+    $("#pmQ").innerHTML = qpickHTML("product", p.id, minQty(p), true);
     openModal($("#productModal"));
   };
-  $("#pmAdd").addEventListener("click", () => {
-    if (!pmCurrent) return;
-    addLine("product", pmCurrent.id, "");
-    closeModal($("#productModal"));
-  });
+  $("#productModal").addEventListener("click", (e) => { qpickClick(e); });
 
   /* ------------------------------ cotización ------------------------------ */
   $("#fMarca").innerHTML = `<option value="">Varias / todas</option>` + BRANDS.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join("");

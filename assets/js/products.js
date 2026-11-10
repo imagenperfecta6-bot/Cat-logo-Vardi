@@ -348,3 +348,12 @@ PRODUCTS.unshift(
   { id: "nevera-personal", ref: "NEVERA ARCTIC", name: "Nevera personal Arctic", category: "viaje", brands: ALL, colors: "", why: "Nevera compacta con manija abatible, para llevar bebidas en el carro.", custom: true },
   { id: "botella-stanley", ref: "STANLEY", name: "Botella térmica Stanley con tapa abatible", category: "equipo", brands: ALL, colors: "", why: "Botella premium de una de nuestras marcas aliadas, marcada con láser.", custom: true },
 );
+
+// Ronda 17 (2026-11-10): productos que compartió Mercadeo IP7
+PRODUCTS.unshift(
+  { id: "gorro-bucket", ref: "GORRO BUCKET", name: "Gorro bucket", category: "clima", brands: ALL, colors: "Azul rey:#1f3fd8", why: "Gorro de tela para el sol en paseos, ferias y entregas al aire libre. Se bordea el logo al frente.", custom: true },
+  { id: "pijama-carro", ref: "PIJAMA CARRO", name: "Pijama para carro", category: "carretera", brands: ALL, colors: "Negro:#1a1a1a", sizes: ["S", "M", "L", "XL"], why: "Funda que cubre el vehículo del sol, el polvo y la lluvia. Disponible en tallas S, M, L y XL según el tamaño del carro.", custom: true },
+  { id: "silla-plegable", ref: "SILLA PLEGABLE", name: "Silla Plegable", category: "viaje", brands: ALL, colors: "Azul:#1f3fd8|Negro:#1a1a1a", why: "Silla plegable portátil con funda, ideal para actividades al aire libre.", custom: true },
+  { id: "silla-camp", ref: "SILLA CAMP", name: "Silla Camp", category: "viaje", brands: ALL, colors: "Rojo:#d62828|Verde:#1f7a3a|Azul:#1f3fd8", why: "Banco plegable compacto, práctico para pesca, camping o eventos.", custom: true },
+  { id: "cobija-spark", ref: "COBIJA SPARK", name: "Cobija Spark", category: "entrega", brands: ALL, colors: "Gris:#9b9690|Azul oscuro:#1f3a7a", why: "Cobija suave tipo mink, un obsequio cálido y elegante para clientes VIP.", custom: true },
+);
