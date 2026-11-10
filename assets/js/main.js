@@ -160,12 +160,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderWorks = () => {
     const grid = $("#workGrid"); if (!grid) return;
-    // A-Z por nombre; el cuaderno de Flotas siempre de cuarto (pedido del cliente)
-    const PIN_ID = "w-flotas-cuaderno", PIN_POS = 3;
+    // A-Z por nombre, con lugares fijos pedidos por el cliente (posición = lugar 1, 2, 3...)
+    const PINS = [
+      ["w-chery-gorra", 1], ["w-dinissan-renta-cojin", 2], ["w-flotas-cuaderno", 4], ["w-nissan-chaqueta", 5],
+      ["w-nissan-morral-nevera", 7], ["w-farizon-paraguas", 10], ["w-vardi-pin-autos-usados", 11], ["w-geely-set", 15],
+    ];
     const list = WORKS_LIST.filter((w) => workState.brand === "all" || w.brand === workState.brand)
       .slice().sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
-    const pi = list.findIndex((w) => w.id === PIN_ID);
-    if (pi > -1) { const [p] = list.splice(pi, 1); list.splice(Math.min(PIN_POS, list.length), 0, p); }
+    const fixed = PINS.map(([id, pos]) => ({ w: list.find((x) => x.id === id), pos })).filter((p) => p.w);
+    fixed.forEach((p) => list.splice(list.indexOf(p.w), 1));
+    fixed.forEach((p) => list.splice(Math.min(p.pos - 1, list.length), 0, p.w));
     grid.innerHTML = list.slice(0, workState.shown).map(workCard).join("");
     const more = $("#workMore");
     more.hidden = list.length <= workState.shown;
