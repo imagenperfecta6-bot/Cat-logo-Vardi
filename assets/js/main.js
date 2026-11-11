@@ -172,7 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }).join("");
 
   /* ------------------------------ trabajos realizados ------------------------------ */
-  const workState = { brand: "all", shown: 12 };
+  const workState = { brand: "all", shown: 12, q: "" };
+  const wnorm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   const fmt = (n) => n.toLocaleString("es-CO");
   const workBrands = (typeof WORK_BRANDS !== "undefined" ? WORK_BRANDS : []).filter((b) => WORKS_LIST.some((w) => w.brand === b.id));
   const totalUnits = WORKS_LIST.reduce((s, w) => s + (w.qty || 0), 0);
@@ -215,12 +216,17 @@ document.addEventListener("DOMContentLoaded", () => {
       ["w-chery-gorra", 1], ["w-dinissan-renta-cojin", 2], ["w-flotas-cuaderno", 4], ["w-nissan-chaqueta", 5],
       ["w-nissan-morral-nevera", 7], ["w-farizon-paraguas", 10], ["w-vardi-pin-autos-usados", 11], ["w-geely-set", 15],
     ];
-    const list = WORKS_LIST.filter((w) => workState.brand === "all" || w.brand === workState.brand)
+    const words = wnorm(workState.q).split(/\s+/).filter(Boolean);
+    const list = WORKS_LIST.filter((w) => (workState.brand === "all" || w.brand === workState.brand) &&
+      words.every((t) => wnorm(`${w.name} ${w.ref} ${w.technique} ${w.brandName} ${w.detail} ${w.colors}`).includes(t)))
       .slice().sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
-    const fixed = PINS.map(([id, pos]) => ({ w: list.find((x) => x.id === id), pos })).filter((p) => p.w);
-    fixed.forEach((p) => list.splice(list.indexOf(p.w), 1));
-    fixed.forEach((p) => list.splice(Math.min(p.pos - 1, list.length), 0, p.w));
-    grid.innerHTML = list.slice(0, workState.shown).map(workCard).join("");
+    if (!words.length) { // los lugares fijos solo valen en la vista normal; al buscar se muestra todo A-Z
+      const fixed = PINS.map(([id, pos]) => ({ w: list.find((x) => x.id === id), pos })).filter((p) => p.w);
+      fixed.forEach((p) => list.splice(list.indexOf(p.w), 1));
+      fixed.forEach((p) => list.splice(Math.min(p.pos - 1, list.length), 0, p.w));
+    }
+    grid.innerHTML = list.length ? list.slice(0, workState.shown).map(workCard).join("") : `<p class="empty">No encontramos trabajos con esa búsqueda. Prueba con otra palabra o quita el filtro de marca.</p>`;
+    const info = $("#workInfo"); if (info) info.textContent = `${list.length} producto${list.length === 1 ? "" : "s"}`;
     const more = $("#workMore");
     more.hidden = list.length <= workState.shown;
     more.textContent = `Ver más trabajos (${list.length - workState.shown})`;
@@ -230,6 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if ($("#workGrid")) {
     $("#workFilters").addEventListener("click", (e) => { const b = e.target.closest("[data-wbrand]"); if (!b) return; workState.brand = b.dataset.wbrand; workState.shown = 12; renderWorks(); });
     $("#workMore").addEventListener("click", () => { workState.shown += 12; renderWorks(); });
+    let wqT; $("#workSearch").addEventListener("input", (e) => { clearTimeout(wqT); wqT = setTimeout(() => { workState.q = e.target.value; workState.shown = 12; renderWorks(); }, 150); });
     $("#workGrid").addEventListener("click", (e) => {
       if (qpickClick(e)) return;
       const open = e.target.closest("[data-work-open]");
@@ -291,6 +298,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const n = base.filter((p) => p.category === c.id).length;
         return `<button class="fcat${state.cat === c.id ? " is-active" : ""}" data-fcat="${c.id}">${c.emoji} ${esc(c.name)} <span class="n">${n}</span></button>`;
       }).join("");
+    // lista desplegable de categorías (misma selección que las pastillas)
+    const sel = $("#catSelect");
+    if (sel) sel.innerHTML = `<option value="all">Todas las categorías (${base.length})</option>` +
+      CATEGORIES.map((c) => `<option value="${c.id}">${c.emoji} ${esc(c.name)} (${base.filter((p) => p.category === c.id).length})</option>`).join("");
+    if (sel) sel.value = state.cat;
   };
 
   const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -314,9 +326,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return `<article class="product">
         <button class="product__img" data-open="${p.id}" aria-label="Ver ${esc(p.name)}">
           <img src="${imgOf(p)}" alt="${esc(p.name)}" loading="lazy" />
-          <span class="product__cat" style="background:${c.color}">${c.emoji} ${esc(c.name)}</span>
         </button>
         <div class="product__body">
+          <span class="product__cat" style="background:${c.color}">${c.emoji} ${esc(c.name)}</span>
           <span class="product__ref">REF ${esc(p.ref)}</span>
           <h3>${esc(p.name)}</h3>
           <p class="product__why">${esc(p.why)}</p>
@@ -342,6 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = e.target.closest("[data-fcat]"); if (!btn) return;
     state.cat = btn.dataset.fcat; state.shown = 24; renderCats(); renderProducts();
   });
+  $("#catSelect").addEventListener("change", (e) => { state.cat = e.target.value; state.shown = 24; renderCats(); renderProducts(); });
   let qT;
   $("#productMore").addEventListener("click", () => { state.shown += 24; renderProducts(); });
   $("#searchInput").addEventListener("input", (e) => { clearTimeout(qT); qT = setTimeout(() => { state.q = e.target.value; state.shown = 24; renderProducts(); }, 150); });

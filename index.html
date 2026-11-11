@@ -116,8 +116,8 @@
           <h2>De la idea a la vitrina en 4 pasos</h2>
         </header>
         <ol class="steps">
-          <li class="reveal"><b>1</b><h3>Elige</h3><p>Agrega productos o kits a tu cotización.</p></li>
-          <li class="reveal"><b>2</b><h3>Cotiza</h3><p>Envía la solicitud a tu asesora IP7 por correo.</p></li>
+          <li class="reveal"><b>1</b><h3>Elige y agrega al carrito</h3><p>Explora el catálogo y los productos trabajados y súmalos a tu carrito con la cantidad que necesites, desde 20 unidades.</p></li>
+          <li class="reveal"><b>2</b><h3>Cotiza desde aquí</h3><p>Revisa tu carrito, completa tus datos y envía la solicitud de cotización desde esta misma plataforma, directo a tu asesora IP7.</p></li>
           <li class="reveal"><b>3</b><h3>Aprueba</h3><p>Te enviamos la cotización formal con precios del producto, marca y distribuciones.</p></li>
           <li class="reveal"><b>4</b><h3>Recibe</h3><p>Entregamos tu producto a la vitrina o sede que desees a nivel nacional.</p></li>
         </ol>
@@ -130,10 +130,17 @@
         <header class="section__head reveal">
           <span class="eyebrow eyebrow--dark">Nuestra experiencia</span>
           <h2>Productos que hemos trabajado</h2>
-          <p>Una muestra de lo que ya hemos producido con los logos del Grupo Vardí. Filtra por marca y pide de nuevo el que quieras.</p>
+          <p>Una muestra de lo que ya hemos producido con los logos del Grupo Vardí. Busca por nombre, filtra por marca y agrega al carrito el que quieras.</p>
         </header>
         <div class="brand-grid" id="brandGrid" hidden></div>
         <h3 class="work-title" id="workTitle" hidden>Trabajos realizados</h3>
+        <div class="work-tools">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+            <input type="search" id="workSearch" placeholder="Buscar producto, referencia o técnica…" autocomplete="off" />
+          </label>
+          <p class="result-info" id="workInfo"></p>
+        </div>
         <div class="filter-row" id="workFilters" aria-label="Filtrar trabajos por marca"></div>
         <div class="work-grid" id="workGrid"></div>
         <div class="work-more"><button class="btn btn--outline" id="workMore" hidden>Ver más</button></div>
@@ -164,10 +171,16 @@
         <div class="filters">
           <div class="filter-row" id="brandFilters" hidden></div>
           <div class="filter-row filter-row--cats" id="catFilters" aria-label="Filtrar por uso"></div>
-          <label class="search">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
-            <input type="search" id="searchInput" placeholder="Buscar producto o referencia…" autocomplete="off" />
-          </label>
+          <div class="filter-tools">
+            <label class="select">
+              <span>Categoría</span>
+              <select id="catSelect" aria-label="Elegir una categoría"></select>
+            </label>
+            <label class="search">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+              <input type="search" id="searchInput" placeholder="Buscar producto o referencia…" autocomplete="off" />
+            </label>
+          </div>
         </div>
 
         <p class="result-info" id="resultInfo"></p>

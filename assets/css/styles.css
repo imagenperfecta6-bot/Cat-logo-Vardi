@@ -514,3 +514,47 @@ body.splash-active { overflow: hidden; }
 .splash-skip { color: rgba(255,255,255,.75); font-size: .76rem; font-weight: 600; letter-spacing: .04em; margin-top: 4px; opacity: 0; animation: splashSkipIn .5s ease .9s forwards; }
 @keyframes splashSkipIn { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { #splash { display: none; } body.splash-active { overflow: auto; } }
+
+/* ---------- portada: CLARA en "Luces altas", AZUL en "Luces bajas" ---------- */
+.hero { background: radial-gradient(900px 480px at 88% 6%, rgba(252, 227, 0, .28) 0%, transparent 60%), radial-gradient(900px 520px at 8% 100%, rgba(47, 109, 240, .14) 0%, transparent 60%), linear-gradient(165deg, #f8fbff 0%, #e3ecfc 100%); color: var(--ink); }
+.hero h1 { color: var(--navy); }
+.hero h1 em { color: var(--navy); background: linear-gradient(transparent 62%, var(--yellow) 62%); padding: 0 .08em; }
+.hero__lead { color: #3d4868; }
+.hero__stats dt { color: var(--navy); }
+.hero__stats dd { color: var(--muted); }
+.hero .eyebrow { color: var(--navy); background: #fff3a6; }
+.hero .btn--ghost { background: transparent; color: var(--navy); border: 1.5px solid rgba(0, 32, 91, .35); }
+.hero .btn--ghost:hover { background: rgba(0, 32, 91, .06); }
+.hero__stage { box-shadow: 0 24px 60px rgba(0, 32, 91, .24); }
+.logo-strip { border-top: 1px solid rgba(0, 32, 91, .1); background: rgba(255, 255, 255, .65); }
+.logo-strip__track img { filter: brightness(0) saturate(100%) invert(11%) sepia(56%) saturate(3170%) hue-rotate(212deg) brightness(90%); }
+.logo-strip__track a { color: var(--navy); }
+[data-theme="dark"] .hero { background: radial-gradient(1200px 600px at 85% 10%, #123a8f 0%, transparent 60%), linear-gradient(160deg, var(--navy) 0%, var(--navy-3) 100%); color: #fff; }
+[data-theme="dark"] .hero h1 { color: #fff; }
+[data-theme="dark"] .hero h1 em { color: var(--yellow); background: none; padding: 0; }
+[data-theme="dark"] .hero__lead { color: rgba(255, 255, 255, .82); }
+[data-theme="dark"] .hero__stats dt { color: var(--yellow); }
+[data-theme="dark"] .hero__stats dd { color: rgba(255, 255, 255, .7); }
+[data-theme="dark"] .hero .eyebrow { color: var(--yellow); background: rgba(252, 227, 0, .12); }
+[data-theme="dark"] .hero .btn--ghost { background: rgba(255, 255, 255, .08); color: #fff; border: 1px solid rgba(255, 255, 255, .35); }
+[data-theme="dark"] .hero__stage { box-shadow: var(--shadow-lg); }
+[data-theme="dark"] .logo-strip { border-top: 1px solid rgba(255, 255, 255, .1); background: rgba(0, 0, 0, .18); }
+[data-theme="dark"] .logo-strip__track img { filter: brightness(0) invert(1); }
+[data-theme="dark"] .logo-strip__track a { color: #fff; }
+
+/* ---------- buscador de trabajos, lista desplegable de categorías ---------- */
+.work-tools { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.work-tools .result-info { margin: 0; }
+.filter-tools { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+.select { display: flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 6px 0 14px; color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.select select { border: 0; outline: 0; background: transparent; font: inherit; font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); padding: 12px 8px 12px 0; min-width: 230px; max-width: 100%; cursor: pointer; }
+.select:focus-within, .search:focus-within { border-color: var(--navy); }
+.filter-tools .search { flex: 1 1 260px; }
+[data-theme="dark"] .select { background: var(--card); border-color: var(--line); }
+[data-theme="dark"] .select select { color: var(--ink); }
+[data-theme="dark"] .select select option { background: #0e1c43; color: #e7ecf8; }
+@media (max-width: 520px) { .select, .filter-tools .search { flex: 1 1 100%; } .select select { min-width: 0; width: 100%; } }
+
+/* ---------- tarjetas de producto: la etiqueta de categoría ya no tapa la foto ---------- */
+.product__img img { padding: 6%; }
+.product__cat { position: static; align-self: flex-start; }
