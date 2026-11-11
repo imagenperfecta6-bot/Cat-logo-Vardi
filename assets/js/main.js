@@ -10,13 +10,14 @@ const ADVISORS = [
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------------------------------------------------
-     ENTRADA (splash): el video de los vehículos entra deslizándose, se reproduce una vez y
-     al terminar la cortina se abre. Tocar = saltar; sin animación si el visitante pidió
+     ENTRADA (splash) a pantalla completa: el video de los vehículos cambia cada 2 s durante 6 s y
+     "avanza" de izquierda a derecha; al terminar un barrido deja ver el sitio. Tocar = saltar; sin animación si el visitante pidió
      reducir movimiento.
      --------------------------------------------------------------------- */
   (function initSplash() {
     const splash = document.getElementById("splash");
     const video = document.getElementById("splashVideo");
+    const bg = document.getElementById("splashBg");
     if (!splash) return;
     let hidden = false;
     const hideSplash = () => {
@@ -24,20 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
       hidden = true;
       document.body.classList.remove("splash-active");
       splash.classList.add("is-leaving");
-      setTimeout(() => { splash.classList.add("is-hidden"); if (video) video.pause(); }, 700);
+      setTimeout(() => { splash.classList.add("is-hidden"); if (video) video.pause(); if (bg) bg.pause(); }, 850);
     };
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { splash.classList.add("is-hidden"); document.body.classList.remove("splash-active"); return; }
-    // La entrada dura lo que dura el video (~5 s) aunque el navegador lo pause o lo retrase;
-    // si ni siquiera deja reproducir (autoplay bloqueado), se abre enseguida.
-    const total = setTimeout(hideSplash, 6200);
+    // dura lo que dura el video (6 s) aunque el navegador lo pause o lo retrase;
+    // si ni siquiera deja reproducir (autoplay bloqueado), se abre enseguida
+    const total = setTimeout(hideSplash, 7000);
     if (video) {
-      video.addEventListener("ended", () => setTimeout(hideSplash, 250));
+      video.addEventListener("playing", () => {
+        splash.classList.add("is-playing");
+        if (bg) { try { bg.currentTime = video.currentTime; } catch (e) {} bg.play().catch(() => {}); }
+      }, { once: true });
+      video.addEventListener("ended", () => setTimeout(hideSplash, 150));
       video.addEventListener("pause", () => { if (!hidden && !video.ended) video.play().catch(() => {}); });
       const p = video.play();
       if (p && p.catch) p.catch((err) => { if (err && err.name === "NotAllowedError") { clearTimeout(total); setTimeout(hideSplash, 2200); } });
     }
-    const fallback = total;
-    splash.addEventListener("click", () => { clearTimeout(fallback); hideSplash(); });
+    splash.addEventListener("click", () => { clearTimeout(total); hideSplash(); });
   })();
 
   const $ = (s, el = document) => el.querySelector(s);

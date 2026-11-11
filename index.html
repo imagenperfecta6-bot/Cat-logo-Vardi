@@ -14,23 +14,43 @@
 </head>
 <body class="splash-active">
   <!-- ============ ENTRADA (splash) ============
-       El video/gif de los vehículos (Nissan → Deepal → Chery → Farizon, que compartió el usuario)
-       entra deslizándose, se reproduce una vez y al terminar la cortina se abre y aparece el sitio
+       Pantalla completa: el video de los vehículos (Nissan → Chery iCAR 03 → Farizon, hecho con el GIF
+       que compartió el usuario) cambia/se transforma cada 2 s durante 6 s mientras "avanza" de izquierda
+       a derecha con rayas de velocidad. Al terminar, un barrido de izquierda a derecha deja ver el sitio
        (mismo mecanismo del splash del catálogo de Navidad). Tocar = saltar. -->
   <div id="splash" role="presentation">
-    <div class="splash-panel splash-panel-top" aria-hidden="true"><div class="splash-stars"></div></div>
-    <div class="splash-panel splash-panel-bottom" aria-hidden="true"></div>
+    <div class="splash-scene" aria-hidden="true">
+      <video class="splash-bg" id="splashBg" src="assets/img/brand/splash-cars.mp4" muted playsinline preload="auto" tabindex="-1"></video>
+      <div class="splash-streaks">
+        <i style="--t:40%;--w:45vw;--d:0.49s;--dl:-0.13s;--o:0.36"></i>
+        <i style="--t:45%;--w:29vw;--d:0.88s;--dl:-0.73s;--o:0.34"></i>
+        <i style="--t:53%;--w:43vw;--d:0.58s;--dl:-0.45s;--o:0.73"></i>
+        <i style="--t:17%;--w:26vw;--d:0.86s;--dl:-0.54s;--o:0.44"></i>
+        <i style="--t:9%;--w:22vw;--d:0.54s;--dl:-0.17s;--o:0.38"></i>
+        <i style="--t:76%;--w:48vw;--d:0.82s;--dl:-0.36s;--o:0.53"></i>
+        <i style="--t:55%;--w:46vw;--d:0.62s;--dl:-0.14s;--o:0.26"></i>
+        <i style="--t:16%;--w:28vw;--d:1.02s;--dl:-0.74s;--o:0.73"></i>
+        <i style="--t:89%;--w:20vw;--d:1.06s;--dl:-0.03s;--o:0.74"></i>
+        <i style="--t:62%;--w:37vw;--d:0.90s;--dl:-0.80s;--o:0.75"></i>
+        <i style="--t:66%;--w:46vw;--d:0.71s;--dl:-0.18s;--o:0.69"></i>
+        <i style="--t:29%;--w:33vw;--d:0.89s;--dl:-0.65s;--o:0.53"></i>
+        <i style="--t:58%;--w:51vw;--d:0.89s;--dl:-0.43s;--o:0.48"></i>
+        <i style="--t:57%;--w:21vw;--d:0.46s;--dl:-0.26s;--o:0.61"></i>
+        <i style="--t:76%;--w:28vw;--d:0.60s;--dl:-0.76s;--o:0.41"></i>
+        <i style="--t:61%;--w:42vw;--d:0.76s;--dl:-0.00s;--o:0.58"></i>      </div>
+      <div class="splash-fgwrap">
+        <video class="splash-fg" id="splashVideo" src="assets/img/brand/splash-cars.mp4" poster="assets/img/brand/splash-cars.jpg" muted playsinline preload="auto" tabindex="-1"></video>
+      </div>
+      <div class="splash-flash splash-flash--1"></div>
+      <div class="splash-flash splash-flash--2"></div>
+      <div class="splash-shade"></div>
+    </div>
     <div class="splash-content">
       <span class="splash-brand">Imagen Perfecta 7 <b>×</b> Grupo Vardí</span>
       <div class="splash-loader">
         <div class="splash-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         <p class="splash-caption">Alistando tu catálogo…</p>
         <span class="splash-skip">Toca para continuar</span>
-      </div>
-    </div>
-    <div class="splash-stage" aria-hidden="true">
-      <div class="splash-card" id="splashCard">
-        <video id="splashVideo" src="assets/img/brand/splash-cars.mp4" poster="assets/img/brand/splash-cars.jpg" muted playsinline preload="auto"></video>
       </div>
     </div>
   </div>
