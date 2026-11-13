@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IP7 × Grupo Vardí · Catálogo de productos promocionales</title>
+  <meta name="description" content="Catálogo de productos promocionales de Imagen Perfecta 7 para las marcas del Grupo Vardí: Nissan, Dinissan, Changan, Deepal, Chery, Mazda Vardí, Farizon y Vardí Seguros." />
+  <link rel="icon" href="assets/img/brand/favicon-carro.svg?v=2" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script>try{if(localStorage.getItem("ip7_vardi_theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+</head>
+<body class="splash-active">
+  <!-- ============ ENTRADA (splash) ============
+       Pantalla completa: el video de los vehículos (Nissan → Chery iCAR 03 → Farizon, hecho con el GIF
+       que compartió el usuario) cambia/se transforma cada 2 s durante 6 s mientras "avanza" de izquierda
+       a derecha con rayas de velocidad. Al terminar, un barrido de izquierda a derecha deja ver el sitio
+       (mismo mecanismo del splash del catálogo de Navidad). Tocar = saltar. -->
+  <div id="splash" role="presentation">
+    <div class="splash-scene" aria-hidden="true">
+      <video class="splash-bg" id="splashBg" src="assets/img/brand/splash-cars.mp4" muted playsinline preload="auto" tabindex="-1"></video>
+      <div class="splash-streaks">
+        <i style="--t:40%;--w:45vw;--d:0.49s;--dl:-0.13s;--o:0.36"></i>
+        <i style="--t:45%;--w:29vw;--d:0.88s;--dl:-0.73s;--o:0.34"></i>
+        <i style="--t:53%;--w:43vw;--d:0.58s;--dl:-0.45s;--o:0.73"></i>
+        <i style="--t:17%;--w:26vw;--d:0.86s;--dl:-0.54s;--o:0.44"></i>
+        <i style="--t:9%;--w:22vw;--d:0.54s;--dl:-0.17s;--o:0.38"></i>
+        <i style="--t:76%;--w:48vw;--d:0.82s;--dl:-0.36s;--o:0.53"></i>
+        <i style="--t:55%;--w:46vw;--d:0.62s;--dl:-0.14s;--o:0.26"></i>
+        <i style="--t:16%;--w:28vw;--d:1.02s;--dl:-0.74s;--o:0.73"></i>
+        <i style="--t:89%;--w:20vw;--d:1.06s;--dl:-0.03s;--o:0.74"></i>
+        <i style="--t:62%;--w:37vw;--d:0.90s;--dl:-0.80s;--o:0.75"></i>
+        <i style="--t:66%;--w:46vw;--d:0.71s;--dl:-0.18s;--o:0.69"></i>
+        <i style="--t:29%;--w:33vw;--d:0.89s;--dl:-0.65s;--o:0.53"></i>
+        <i style="--t:58%;--w:51vw;--d:0.89s;--dl:-0.43s;--o:0.48"></i>
+        <i style="--t:57%;--w:21vw;--d:0.46s;--dl:-0.26s;--o:0.61"></i>
+        <i style="--t:76%;--w:28vw;--d:0.60s;--dl:-0.76s;--o:0.41"></i>
+        <i style="--t:61%;--w:42vw;--d:0.76s;--dl:-0.00s;--o:0.58"></i>      </div>
+      <div class="splash-fgwrap">
+        <video class="splash-fg" id="splashVideo" src="assets/img/brand/splash-cars.mp4" poster="assets/img/brand/splash-cars.jpg" muted playsinline preload="auto" tabindex="-1"></video>
+      </div>
+      <div class="splash-flash splash-flash--1"></div>
+      <div class="splash-flash splash-flash--2"></div>
+      <div class="splash-shade"></div>
+    </div>
+    <div class="splash-content">
+      <span class="splash-brand">Imagen Perfecta 7 <b>×</b> Grupo Vardí</span>
+      <div class="splash-loader">
+        <div class="splash-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p class="splash-caption">Alistando tu catálogo…</p>
+        <span class="splash-skip">Toca para continuar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="topbar" id="topbar">
+    <div class="wrap topbar__in">
+      <a href="#inicio" class="brandmark" aria-label="Inicio">
+        <img src="assets/img/brand/logo-ip7-blanco.png" alt="Imagen Perfecta 7" class="brandmark__ip7" />
+        <span class="brandmark__x">×</span>
+        <img src="assets/img/marcas/vardi-yellow.svg" alt="Grupo Vardí" class="brandmark__vardi" />
+      </a>
+      <div class="catmenu" id="catMenu">
+        <button class="catmenu__btn" id="catMenuBtn" aria-expanded="false" aria-controls="catMenuPanel">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+          <span>Productos</span>
+          <svg class="catmenu__chev" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="m7 9 5 5 5-5H7Z"/></svg>
+        </button>
+        <div class="catmenu__panel" id="catMenuPanel" hidden>
+          <div class="catmenu__grid" id="catMenuGrid"></div>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#trabajos">Productos trabajados</a>
+        <a href="#kits">Kits</a>
+        <a href="#catalogo">Catálogo</a>
+      </nav>
+      <div class="lights" role="group" aria-label="Modo de color">
+        <button class="lights__opt" data-theme-set="light" title="Luces altas (modo claro)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M9 5a7 7 0 0 0 0 14h1V5H9Zm3 1v12h1c1.7 0 3-3 3-6s-1.3-6-3-6h-1Zm6 0 4-1v2l-4 1V6Zm0 4.5 4-.5v2l-4-.5v-1Zm0 4.5 4 1v2l-4-1v-2Z"/></svg><span>Luces altas</span></button>
+        <button class="lights__opt" data-theme-set="dark" title="Luces bajas (modo oscuro)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M9 5a7 7 0 0 0 0 14h1V5H9Zm3 1v12h1c1.7 0 3-3 3-6s-1.3-6-3-6h-1Zm6 3 4 2v2l-4-2V9Zm0 4 4 2v2l-4-2v-2Z"/></svg><span>Luces bajas</span></button>
+      </div>
+      <button class="cart-btn" id="cartBtn" aria-label="Ver mi cotización">
+        <svg class="car-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M2.2 15.6c0-1.9.9-2.7 2.6-3.1l3.4-.7c1.5-1.7 3.2-2.7 5.4-2.7h2.3c1.9 0 3.4.8 4.6 2.3l1.1.5c1 .4 1.6 1.3 1.6 2.4v1.6c0 .6-.4 1-1 1H3.2c-.6 0-1-.4-1-1Z"/><path fill="#fce300" d="M9.6 11.9c1-1.1 2.2-1.7 3.6-1.7h.6v1.7Zm5.4 0v-1.7h1c1.3 0 2.3.5 3.2 1.7Z"/><circle cx="6.9" cy="16.9" r="2.6" fill="currentColor" stroke="#fce300" stroke-width="1.2"/><circle cx="18" cy="16.9" r="2.6" fill="currentColor" stroke="#fce300" stroke-width="1.2"/></svg>
+        <span class="cart-btn__txt">Mi cotización</span>
+        <span class="cart-btn__count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero__in">
+        <div class="hero__copy reveal">
+          <span class="eyebrow">Catálogo exclusivo · Grupo Vardí</span>
+          <h1>Productos que <em>se mueven</em> con cada marca del Grupo Vardí</h1>
+          <p class="hero__lead">Un solo lugar para elegir el material promocional de todas las marcas y vitrinas del grupo: entregas de vehículo, lanzamientos, posventa, ferias y equipo comercial.</p>
+          <div class="hero__ctas">
+            <a href="#catalogo" class="btn btn--yellow">Ver productos</a>
+            <a href="#trabajos" class="btn btn--ghost">Productos trabajados</a>
+          </div>
+          <dl class="hero__stats">
+            <div><dt>+<span data-count="25">25</span></dt><dd>años trabajando juntos</dd></div>
+            <div><dt>+<span data-count="20">20</span></dt><dd>personas de nuestro equipo trabajando para ustedes</dd></div>
+            <div><dt>+<span data-count="5000">5.000</span></dt><dd>productos para ti</dd></div>
+          </dl>
+        </div>
+        <div class="hero__stage reveal" id="heroStage" aria-label="Ilustraciones de vehículos">
+          <!-- slides generadas desde BRANDS -->
+          <div class="hero__dots" id="heroDots"></div>
+        </div>
+      </div>
+      <div class="logo-strip" aria-label="Marcas con las que hemos trabajado">
+        <div class="logo-strip__track" id="logoTrack"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESO ============ -->
+    <section class="section" id="proceso">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="eyebrow eyebrow--dark">Cómo funciona</span>
+          <h2>De la idea a la vitrina en 4 pasos</h2>
+        </header>
+        <ol class="steps">
+          <li class="reveal"><b>1</b><h3>Elige y agrega al carrito</h3><p>Explora el catálogo y los productos trabajados y súmalos a tu carrito con la cantidad que necesites, desde 20 unidades.</p></li>
+          <li class="reveal"><b>2</b><h3>Cotiza desde aquí</h3><p>Revisa tu carrito, completa tus datos y envía la solicitud de cotización desde esta misma plataforma, directo a tu asesora IP7.</p></li>
+          <li class="reveal"><b>3</b><h3>Aprueba</h3><p>Te enviamos la cotización formal con precios del producto, marca y distribuciones.</p></li>
+          <li class="reveal"><b>4</b><h3>Recibe</h3><p>Entregamos tu producto a la vitrina o sede que desees a nivel nacional.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTOS QUE HEMOS TRABAJADO ============ -->
+    <section class="section section--soft" id="trabajos">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="eyebrow eyebrow--dark">Nuestra experiencia</span>
+          <h2>Productos que hemos trabajado</h2>
+          <p>Una muestra de lo que ya hemos producido con los logos del Grupo Vardí. Busca por nombre, filtra por marca y agrega al carrito el que quieras.</p>
+        </header>
+        <div class="brand-grid" id="brandGrid" hidden></div>
+        <h3 class="work-title" id="workTitle" hidden>Trabajos realizados</h3>
+        <div class="work-tools">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            <input type="search" id="workSearch" placeholder="Buscar producto, referencia o técnica…" autocomplete="off" />
+          </label>
+          <p class="result-info" id="workInfo"></p>
+        </div>
+        <div class="filter-row" id="workFilters" aria-label="Filtrar trabajos por marca"></div>
+        <div class="work-grid" id="workGrid"></div>
+        <div class="work-more"><button class="btn btn--outline" id="workMore" hidden>Ver más</button></div>
+      </div>
+    </section>
+
+    <!-- ============ KITS ============ -->
+    <section class="section" id="kits">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="eyebrow eyebrow--dark">Kits sugeridos</span>
+          <h2>Combinaciones listas para cada momento</h2>
+          <p>Kits armados con productos en inventario. Puedes cotizarlos tal cual o pedirnos ajustes.</p>
+        </header>
+        <div class="kit-grid" id="kitGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ CATÁLOGO ============ -->
+    <section class="section section--soft" id="catalogo">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="eyebrow eyebrow--dark">Catálogo</span>
+          <h2>Productos para el Grupo Vardí</h2>
+          <p>Filtra por uso o busca por nombre. Todos los productos se personalizan con el logo que necesites.</p>
+        </header>
+
+        <div class="filters">
+          <div class="filter-row" id="brandFilters" hidden></div>
+          <div class="filter-row filter-row--cats" id="catFilters" aria-label="Filtrar por uso"></div>
+          <div class="filter-tools">
+            <label class="select">
+              <span>Categoría</span>
+              <select id="catSelect" aria-label="Elegir una categoría"></select>
+            </label>
+            <label class="search">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+              <input type="search" id="searchInput" placeholder="Buscar producto o referencia…" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+
+        <p class="result-info" id="resultInfo"></p>
+        <div class="product-grid" id="productGrid"></div>
+        <div class="work-more"><button class="btn btn--outline" id="productMore" hidden>Ver más</button></div>
+        <p class="empty" id="emptyState" hidden>No encontramos productos con ese filtro. Prueba con otra marca o palabra.</p>
+      </div>
+    </section>
+
+
+    <section class="section" id="alianzas">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="eyebrow eyebrow--dark">Alianzas</span>
+          <h2>Proveedores premium</h2>
+          <p>Llevamos la marca a productos de primer nivel gracias a nuestras alianzas con las mejores marcas del mercado.</p>
+        </header>
+        <div class="ally-grid reveal" id="allyGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ MÁS PRODUCTOS ============ -->
+    <section class="section" id="mas-productos">
+      <div class="wrap">
+        <div class="more reveal">
+          <span class="eyebrow">Más opciones</span>
+          <h2>Conoce más productos</h2>
+          <p>¿Buscas algo que no está en este catálogo? Explora el portafolio completo de Imagen Perfecta Sie7e en nuestras tiendas en línea.</p>
+          <div class="more__grid">
+            <a class="more__card" href="https://ip7.cataprom.com/" target="_blank" rel="noopener"><b>Portafolio 1</b><span>ip7.cataprom.com</span><i aria-hidden="true">↗</i></a>
+            <a class="more__card" href="https://ip7-alternativa.muy.promo/" target="_blank" rel="noopener"><b>Portafolio 2</b><span>ip7-alternativa.muy.promo</span><i aria-hidden="true">↗</i></a>
+            <a class="more__card" href="https://ip7.marpicopromocionales.com/" target="_blank" rel="noopener"><b>Portafolio 3</b><span>ip7.marpicopromocionales.com</span><i aria-hidden="true">↗</i></a>
+            <a class="more__card" href="https://www.promocionalesenlinea.com/Imagenperfecta7?limit=42" target="_blank" rel="noopener"><b>Portafolio 4</b><span>promocionalesenlinea.com</span><i aria-hidden="true">↗</i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta__in reveal">
+        <h2>¿Tienes un lanzamiento, feria o entrega masiva?</h2>
+        <p>Cuéntanos la marca, la fecha y la cantidad. Te proponemos productos a la medida.</p>
+        <button class="btn btn--yellow" id="ctaQuote">Solicitar cotización</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__in">
+      <div>
+        <img src="assets/img/brand/logo-ip7-blanco.png" alt="Imagen Perfecta 7" class="footer__logo" />
+        <p>Imagen Perfecta 7 · Productos promocionales y marketing<br />Cl. 72A #63-12, Bogotá · <a href="mailto:ejecutivo.comercial5@ip7.com.co">ejecutivo.comercial5@ip7.com.co</a></p>
+      </div>
+      <p class="footer__note">Catálogo preparado para el Grupo Vardí. Las marcas y logos pertenecen a sus respectivos dueños. Imágenes de producto de referencia; la marcación final se aprueba con el montaje.</p>
+    </div>
+    <div class="wrap footer__bottom">
+      <span>© 2026 Imagen Perfecta Sie7e. Todos los derechos reservados.</span>
+      <span>Creado por <a href="https://www.linkedin.com/in/sneyther-linares-576265230/" target="_blank" rel="noopener">Sneyther Linares</a>, Coordinador Comercial y de Mercadeo</span>
+    </div>
+  </footer>
+
+  <!-- ============ DRAWER COTIZACIÓN ============ -->
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Mi cotización">
+    <header class="drawer__head">
+      <h3>Mi cotización</h3>
+      <button class="icon-btn" id="drawerClose" aria-label="Cerrar">✕</button>
+    </header>
+    <div class="drawer__body" id="cartList"></div>
+    <footer class="drawer__foot">
+      <p class="drawer__hint">Cantidad mínima general: <b id="minQtyLabel">20</b> unidades (algunos productos tienen su propio mínimo).</p>
+      <button class="btn btn--navy btn--block" id="quoteBtn">Solicitar cotización</button>
+      <button class="btn-link" id="clearCart">Vaciar lista</button>
+    </footer>
+  </aside>
+
+  <!-- ============ MODAL PRODUCTO ============ -->
+  <div class="modal" id="productModal" hidden role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <div class="modal__box modal__box--product">
+      <button class="icon-btn modal__close" data-close aria-label="Cerrar">✕</button>
+      <div class="pm">
+        <div class="pm__img"><img id="pmImg" alt="" /></div>
+        <div class="pm__info">
+          <span class="pm__ref" id="pmRef"></span>
+          <h3 id="pmTitle"></h3>
+          <p class="pm__why" id="pmWhy"></p>
+          <div class="pm__block"><span class="label">Colores disponibles</span><div class="swatches" id="pmColors"></div></div>
+          <div class="pm__block" hidden><span class="label">Ideal para</span><div class="pm__brands" id="pmBrands"></div></div>
+          <label class="pm__block" hidden><span class="label">Marcar con el logo de</span>
+            <select id="pmBrandSel"></select>
+          </label>
+          <div class="pm__actions">
+            <div id="pmQ"></div>
+            <a class="btn-link" id="pmSheet" target="_blank" rel="noopener">Ver ficha técnica ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL TRABAJO ============ -->
+  <div class="modal" id="workModal" hidden role="dialog" aria-modal="true" aria-labelledby="wmTitle">
+    <div class="modal__box modal__box--product">
+      <button class="icon-btn modal__close" data-close aria-label="Cerrar">✕</button>
+      <div class="pm">
+        <div class="wm-media"><div class="pm__img" id="wmMain"></div><div class="wm-thumbs" id="wmThumbs"></div></div>
+        <div class="pm__info">
+          <div class="work__tags" id="wmTags"></div>
+          <h3 id="wmTitle"></h3>
+          <dl class="wm-rows" id="wmRows"></dl>
+          <p class="wm-note" id="wmNote" hidden>La foto es del producto de catálogo; el montaje con el logo está en el archivo aprobado.</p>
+          <div class="pm__actions">
+            <div id="wmQ"></div>
+            <a class="btn-link" id="wmSheet" target="_blank" rel="noopener">Ver ficha técnica ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL SOLICITUD ============ -->
+  <div class="modal" id="quoteModal" hidden role="dialog" aria-modal="true" aria-labelledby="qmTitle">
+    <div class="modal__box">
+      <button class="icon-btn modal__close" data-close aria-label="Cerrar">✕</button>
+      <h3 id="qmTitle">Solicitar cotización</h3>
+      <p class="muted">Abriremos tu correo con la solicitud lista para enviar a tu asesor (con copia a Mercadeo IP7).</p>
+      <form id="quoteForm" novalidate>
+        <div class="form-grid">
+          <label class="span-2">Marca principal<select name="marca" id="fMarca"></select></label>
+          <label>Nombre *<input name="nombre" required /></label>
+          <label>Cargo<input name="cargo" /></label>
+          <label>Correo *<input name="correo" type="email" required /></label>
+          <label>Teléfono *<input name="telefono" type="tel" required /></label>
+          <label>Ciudad / vitrina<input name="ciudad" /></label>
+          <label>Fecha requerida<input name="fecha" type="date" /></label>
+          <p class="span-2 advisor-box">Tu asesora comercial: <b id="advisorName"></b><select name="asesor" id="fAsesor" hidden></select></p>
+          <label class="span-2">Comentarios<textarea name="notas" rows="3" placeholder="Evento, técnica de marcación, sedes de entrega…"></textarea></label>
+        </div>
+        <p class="form-error" id="formError" hidden>Completa los campos obligatorios (*) y agrega al menos un producto.</p>
+        <div class="form-actions">
+          <button type="submit" class="btn btn--navy">Enviar por correo</button>
+          <button type="button" class="btn btn--outline" id="copyRequestBtn">Copiar solicitud</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <button class="cart-fab" id="cartFab" aria-label="Ver mi cotización"><svg class="car-ic" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M2.2 15.6c0-1.9.9-2.7 2.6-3.1l3.4-.7c1.5-1.7 3.2-2.7 5.4-2.7h2.3c1.9 0 3.4.8 4.6 2.3l1.1.5c1 .4 1.6 1.3 1.6 2.4v1.6c0 .6-.4 1-1 1H3.2c-.6 0-1-.4-1-1Z"/><path fill="#fce300" d="M9.6 11.9c1-1.1 2.2-1.7 3.6-1.7h.6v1.7Zm5.4 0v-1.7h1c1.3 0 2.3.5 3.2 1.7Z"/><circle cx="6.9" cy="16.9" r="2.6" fill="currentColor" stroke="#fce300" stroke-width="1.2"/><circle cx="18" cy="16.9" r="2.6" fill="currentColor" stroke="#fce300" stroke-width="1.2"/></svg><span class="cart-fab__count" id="cartFabCount">0</span></button>
+  <a class="wa-fab" href="https://wa.me/573006015812?text=Hola%20IP7%2C%20quiero%20cotizar%20productos%20para%20el%20Grupo%20Vard%C3%AD" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp a Elizabeth León">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></svg>
+  </a>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/trabajos.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
