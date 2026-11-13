@@ -619,3 +619,5 @@ html:not([data-theme="dark"]) .more__card:hover { border-color: var(--yellow); b
   .cart-btn { padding: 7px 10px; gap: 6px; }
   .lights__opt { padding: 6px 8px; }
 }
+/* el carro de los botones de cotización mira hacia la derecha */
+.cart-fab .car-ic, .cart-btn .car-ic { transform: scaleX(-1); }
