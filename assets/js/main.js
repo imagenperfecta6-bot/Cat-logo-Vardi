@@ -355,6 +355,31 @@ document.addEventListener("DOMContentLoaded", () => {
     state.cat = btn.dataset.fcat; state.shown = 24; renderCats(); renderProducts();
   });
   $("#catSelect").addEventListener("change", (e) => { state.cat = e.target.value; state.shown = 24; renderCats(); renderProducts(); });
+
+  /* menú "Productos" del encabezado: categorías del catálogo */
+  const catMenu = $("#catMenu"), catMenuBtn = $("#catMenuBtn"), catMenuPanel = $("#catMenuPanel");
+  if (catMenu) {
+    const countCat = (id) => PRODUCTS.filter((p) => id === "all" || p.category === id).length;
+    $("#catMenuGrid").innerHTML =
+      `<button data-menu-cat="all"><span class="ic">🛒</span><span>Todos los productos</span><small>${countCat("all")}</small></button>` +
+      CATEGORIES.map((c) => `<button data-menu-cat="${c.id}"><span class="ic">${c.emoji}</span><span>${esc(c.name)}</span><small>${countCat(c.id)}</small></button>`).join("");
+    const setMenu = (open) => { catMenuPanel.hidden = !open; catMenuBtn.setAttribute("aria-expanded", String(open)); };
+    catMenuBtn.addEventListener("click", (e) => { e.stopPropagation(); setMenu(catMenuPanel.hidden); });
+    catMenuPanel.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-menu-cat]"); if (!b) return;
+      state.cat = b.dataset.menuCat; state.q = ""; const si = $("#searchInput"); if (si) si.value = "";
+      state.shown = 24; renderCats(); renderProducts(); setMenu(false);
+      // ir al catálogo (se re-apunta por si el contenido de arriba cambia de alto mientras baja)
+      let userMoved = false;
+      const stop = () => { userMoved = true; };
+      ["wheel", "touchstart", "keydown"].forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
+      const goCat = (smooth) => { if (userMoved) return; const off = $("#catalogo").getBoundingClientRect().top - 64; if (Math.abs(off) > 4) window.scrollTo({ top: window.scrollY + off, behavior: smooth ? "smooth" : "instant" }); };
+      goCat(true);
+      [700, 1400, 2200, 3200].forEach((t, i) => setTimeout(() => goCat(i < 1), t));
+    });
+    document.addEventListener("click", (e) => { if (!catMenu.contains(e.target)) setMenu(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  }
   let qT;
   $("#productMore").addEventListener("click", () => { state.shown += 24; renderProducts(); });
   $("#searchInput").addEventListener("input", (e) => { clearTimeout(qT); qT = setTimeout(() => { state.q = e.target.value; state.shown = 24; renderProducts(); }, 150); });

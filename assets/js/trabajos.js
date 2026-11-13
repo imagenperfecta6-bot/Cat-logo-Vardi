@@ -66,7 +66,6 @@ const WORKS = [
   { id: "w-nissan-mug-troy", brand: "nissan", brandName: "Nissan", name: "Mug metálico Troy 300 ml", ref: "MU-343", cp: "MU-343/mug-met-lico-troy-300ml", technique: "UV-DTF / Tampografía", detail: "4 × 3,3 cm", colors: "Negro · Blanco", qty: 150, img: "nissan-mug-troy.jpg", gallery: ["nissan-mug-troy-negro.jpg"] },
   { id: "w-nissan-vaso-mask", brand: "nissan", brandName: "Nissan", name: "Vaso térmico metálico Mask 350 ml", ref: "MU-237", cp: "MU-237/mug-met-lico-mask-350ml", technique: "Láser", detail: "3,7 × 3 cm", colors: "Negro · Blanco · Azul", qty: 150, img: "nissan-vaso-mask.jpg" },
   { id: "w-nissan-pano", brand: "nissan", brandName: "Nissan", name: "Paño en microfibra 30 × 30 cm", ref: "HO-64", cp: "HO-64/pa-o-en-microfibra", technique: "Screen", detail: "Tinta blanca · logo 10 cm", colors: "Rojo", qty: 100, img: "nissan-pano-rojo.jpg" },
-  { id: "w-nissan-gorra", brand: "nissan", brandName: "Nissan", name: "Gorra Mesh", ref: "CAP-31", cp: "CAP-31/gorra-mesh-urban-travel", technique: "Bordado", detail: "Hilo blanco · 7 × 5,8 cm", colors: "Negro", qty: 80, img: "nissan-gorra-mesh.jpg" },
   { id: "w-nissan-vaso-lumix", brand: "nissan", brandName: "Nissan", name: "Vaso metálico Lumix 600 ml con pitillo", ref: "MU-409", cp: "MU-409/mug-met-lico-lumix-600-ml", technique: "Láser", detail: "3 × 2,5 cm", colors: "Negro · Silver", qty: 30, img: "nissan-vaso-lumix.jpg" },
 
   // ---------------- Dinissan / Dinissan Maquinaria / Flotas Dinissan ----------------

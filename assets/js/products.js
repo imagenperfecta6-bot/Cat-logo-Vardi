@@ -351,6 +351,7 @@ PRODUCTS.unshift(
 
 // Ronda 17 (2026-11-10): productos que compartió Mercadeo IP7
 PRODUCTS.unshift(
+  { id: "gorra-mesh-cap31", ref: "CAP-31", name: "Gorra Mesh Urban", category: "textiles", brands: ALL, colors: "Negro:#1a1a1a|Azul oscuro:#1f2a4d|Azul royal:#1f5fd6|Rojo:#d62828|Naranja:#f57c00|Amarillo:#fdd835|Verde:#2e9d4b|Blanco:#ffffff", why: "Gorra con malla posterior y frente en tela, ideal para bordar o estampar el logo.", custom: true },
   { id: "gorro-bucket", ref: "GORRO BUCKET", name: "Gorro bucket", category: "clima", brands: ALL, colors: "Azul rey:#1f3fd8", why: "Gorro de tela para el sol en paseos, ferias y entregas al aire libre. Se bordea el logo al frente.", custom: true },
   { id: "pijama-carro", ref: "PIJAMA CARRO", name: "Pijama para carro", category: "entrega", brands: ALL, colors: "Negro:#1a1a1a", sizes: ["S", "M", "L", "XL"], why: "Funda que cubre el vehículo del sol, el polvo y la lluvia. Disponible en tallas S, M, L y XL según el tamaño del carro.", custom: true },
   { id: "silla-plegable", ref: "SILLA PLEGABLE", name: "Silla Plegable", category: "viaje", brands: ALL, colors: "Azul:#1f3fd8|Negro:#1a1a1a", why: "Silla plegable portátil con funda, ideal para actividades al aire libre.", custom: true },
