@@ -439,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ${isWork ? `<small>Logo: ${esc(item.brandName)}</small>` : ""}
           <div class="qty">
             <button data-dec aria-label="Menos">−</button>
-            <input type="number" min="${DEFAULT_MIN_QTY}" step="1" value="${l.qty}" data-qty aria-label="Cantidad" />
+            <input type="number" min="${lineMin(l)}" step="1" value="${l.qty}" data-qty aria-label="Cantidad" />
             <button data-inc aria-label="Más">+</button>
             <small>und.</small>
           </div>
@@ -449,13 +449,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   };
 
+  // mínimo por línea: el del producto (pijama 5, Stanley 10, dulces 3.000…); trabajos y kits usan el general
+  const lineMin = (l) => (l.type === "product" ? minQty(productById(l.id)) : DEFAULT_MIN_QTY);
+
   $("#cartList").addEventListener("click", (e) => {
     const line = e.target.closest(".line"); if (!line) return;
     const l = cart[+line.dataset.i];
-    const step = DEFAULT_MIN_QTY;
+    const step = lineMin(l);
     if (e.target.closest("[data-rm]")) cart.splice(+line.dataset.i, 1);
     else if (e.target.closest("[data-inc]")) l.qty += step;
-    else if (e.target.closest("[data-dec]")) l.qty = Math.max(DEFAULT_MIN_QTY, l.qty - step);
+    else if (e.target.closest("[data-dec]")) l.qty = Math.max(step, l.qty - step);
     else return;
     save(); renderCart();
   });
@@ -464,8 +467,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const l = cart[+line.dataset.i];
     if (e.target.matches("[data-qty]")) {
       const v = parseInt(e.target.value, 10);
-      l.qty = Number.isFinite(v) ? Math.max(DEFAULT_MIN_QTY, v) : DEFAULT_MIN_QTY;
-      if (v < DEFAULT_MIN_QTY) showToast(`La cantidad mínima es ${DEFAULT_MIN_QTY} unidades.`);
+      const mn = lineMin(l);
+      l.qty = Number.isFinite(v) ? Math.max(mn, v) : mn;
+      if (v < mn) showToast(`La cantidad mínima es ${mn} unidades.`);
     }
     if (e.target.matches("[data-brand-sel]")) {
       const newKey = keyOf(l.type, l.id, e.target.value);

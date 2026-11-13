@@ -162,6 +162,7 @@ const CATEGORIES = [
   { id: "marroquineria", name: "Marroquinería", emoji: "👜", color: "#f3e7da" },
   { id: "textiles", name: "Textiles", emoji: "👕", color: "#e2f0ff" },
   { id: "litografia", name: "Litografía", emoji: "📒", color: "#eef7d9" },
+  { id: "comestibles", name: "Aguas, chocolates y dulces", emoji: "🍫", color: "#fde7ef" },
 ];
 
 const ALL = ["nissan", "dinissan", "changan", "deepal", "chery", "mazda", "farizon", "seguros"];
@@ -343,18 +344,29 @@ PRODUCTS.push(
 // Ronda 8 (2026-11-06): productos que compartió Mercadeo IP7
 PRODUCTS.unshift(
   { id: "carrito-mercado", ref: "CARRITO MERCADO", name: "Carrito de mercado plegable", category: "viaje", brands: ALL, colors: "Rojo:#d62828|Azul:#1f5fd6|Azul oscuro:#2e3a6e|Negro:#1a1a1a", why: "Bolsa amplia con tapa y ruedas, para mercado o viaje. Se marca en el frente.", custom: true },
-  { id: "galletas-fortuna", ref: "A LA MEDIDA", name: "Galletas de la fortuna con mensaje personalizado", category: "entrega", brands: ALL, colors: "", why: "Un detalle con mensaje de la marca para la entrega del vehículo o un evento.", custom: true },
+  { id: "galletas-fortuna", ref: "A LA MEDIDA", name: "Galletas de la fortuna con mensaje personalizado", category: "comestibles", brands: ALL, colors: "", why: "Un detalle con mensaje de la marca para la entrega del vehículo o un evento.", custom: true },
   { id: "nevera-portavasos", ref: "NEVERA PORTÁTIL", name: "Nevera portátil con portavasos en la tapa", category: "viaje", brands: ALL, colors: "", why: "Nevera con manija para paseos y test drives. Tapa con espacio para vasos.", custom: true },
   { id: "nevera-personal", ref: "NEVERA ARCTIC", name: "Nevera personal Arctic", category: "viaje", brands: ALL, colors: "", why: "Nevera compacta con manija abatible, para llevar bebidas en el carro.", custom: true },
-  { id: "botella-stanley", ref: "STANLEY", name: "Botella térmica Stanley con tapa abatible", category: "equipo", brands: ALL, colors: "", why: "Botella premium de una de nuestras marcas aliadas, marcada con láser.", custom: true },
+  { id: "botella-stanley", ref: "STANLEY", name: "Botella térmica Stanley con tapa abatible", category: "equipo", brands: ALL, minQty: 10, colors: "", why: "Botella premium de una de nuestras marcas aliadas, marcada con láser.", custom: true },
 );
 
 // Ronda 17 (2026-11-10): productos que compartió Mercadeo IP7
 PRODUCTS.unshift(
   { id: "gorra-mesh-cap31", ref: "CAP-31", name: "Gorra Mesh Urban", category: "textiles", brands: ALL, colors: "Negro:#1a1a1a|Azul oscuro:#1f2a4d|Azul royal:#1f5fd6|Rojo:#d62828|Naranja:#f57c00|Amarillo:#fdd835|Verde:#2e9d4b|Blanco:#ffffff", why: "Gorra con malla posterior y frente en tela, ideal para bordar o estampar el logo.", custom: true },
   { id: "gorro-bucket", ref: "GORRO BUCKET", name: "Gorro bucket", category: "clima", brands: ALL, colors: "Azul rey:#1f3fd8", why: "Gorro de tela para el sol en paseos, ferias y entregas al aire libre. Se bordea el logo al frente.", custom: true },
-  { id: "pijama-carro", ref: "PIJAMA CARRO", name: "Pijama para carro", category: "entrega", brands: ALL, colors: "Negro:#1a1a1a", sizes: ["S", "M", "L", "XL"], why: "Funda que cubre el vehículo del sol, el polvo y la lluvia. Disponible en tallas S, M, L y XL según el tamaño del carro.", custom: true },
+  { id: "pijama-carro", ref: "PIJAMA CARRO", name: "Pijama para carro", category: "entrega", brands: ALL, minQty: 5, colors: "Negro:#1a1a1a", sizes: ["S", "M", "L", "XL"], why: "Funda que cubre el vehículo del sol, el polvo y la lluvia. Disponible en tallas S, M, L y XL según el tamaño del carro.", custom: true },
   { id: "silla-plegable", ref: "SILLA PLEGABLE", name: "Silla Plegable", category: "viaje", brands: ALL, colors: "Azul:#1f3fd8|Negro:#1a1a1a", why: "Silla plegable portátil con funda, ideal para actividades al aire libre.", custom: true },
   { id: "silla-camp", ref: "SILLA CAMP", name: "Silla Camp", category: "viaje", brands: ALL, colors: "Rojo:#d62828|Verde:#1f7a3a|Azul:#1f3fd8", why: "Banco plegable compacto, práctico para pesca, camping o eventos.", custom: true },
   { id: "cobija-spark", ref: "COBIJA SPARK", name: "Cobija Spark", category: "entrega", brands: ALL, colors: "Gris:#9b9690|Azul oscuro:#1f3a7a", why: "Cobija suave tipo mink, un obsequio cálido y elegante para clientes VIP.", custom: true },
+);
+
+// Aguas, chocolates y dulces (fotos del catálogo Automotriz de IP7; proveedor Colflex / Mer-te)
+PRODUCTS.push(
+  { id: "agua-personalizada", ref: "AGUA", name: "Agua personalizada", category: "comestibles", brands: ALL, minQty: 200, colors: "", why: "Botellas de agua con etiqueta de la marca, para vitrinas, test drives y eventos. Varias referencias y tamaños.", custom: true },
+  { id: "chocolates-personalizados", ref: "CHOCOLATES", name: "Chocolates personalizados", category: "comestibles", brands: ALL, minQty: 1000, colors: "", why: "Chocolates con empaque de la marca, un detalle dulce para entregas de vehículo y clientes VIP.", custom: true },
+  { id: "paletas-dulce", ref: "PALETAS", name: "Paletas de dulce", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Paletas personalizadas, un detalle colorido para ferias, vitrinas y eventos familiares.", custom: true },
+  { id: "dulces-blandos", ref: "DULCE BLANDO", name: "Dulces blandos", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Surtido de dulces blandos con empaque de la marca, para la sala de espera y el punto de atención.", custom: true },
+  { id: "dulces-duros", ref: "DULCE DURO", name: "Dulces duros", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Dulces duros individuales con la marca, un clásico para recepción, posventa y entregas.", custom: true },
+  { id: "gomas-gomitas", ref: "GOMAS", name: "Gomas y gomitas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Gomas de mascar y gomitas surtidas en empaque personalizado, un detalle fresco para el viaje.", custom: true },
+  { id: "mentas-personalizadas", ref: "MENTAS", name: "Mentas personalizadas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Mentas individuales con la marca, ideales para el carro, la vitrina y el test drive.", custom: true },
 );
