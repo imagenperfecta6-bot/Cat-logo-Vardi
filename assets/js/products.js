@@ -242,18 +242,31 @@ const KITS = [
     ],
   },
   {
+    id: "kit-carretera",
+    name: "Kit Carretera Segura",
+    tagline: "Prevención con marca para asegurados y flotas",
+    brands: ["seguros", "farizon", "dinissan"],
+    // Kit 2 armado (foto real del kit)
+    photo: "assets/img/kits/kit-carretera.jpg",
+    items: ["he-328", "he-280", "il-139", "va-244"],
+    contents: [
+      { name: "Estuche triangular con cremallera y manija", ref: "A LA MEDIDA" },
+      { name: "Triángulo de seguridad reflectivo", ref: "A LA MEDIDA" },
+      { name: "Chaleco reflectivo", ref: "A LA MEDIDA" },
+      { name: "Cables de arranque para batería", ref: "A LA MEDIDA" },
+      { name: "Guantes de trabajo", ref: "A LA MEDIDA" },
+      { name: "Linterna", ref: "A LA MEDIDA" },
+      { name: "Alicate", ref: "A LA MEDIDA" },
+      { name: "Destornillador", ref: "A LA MEDIDA" },
+      { name: "Medidor de presión de llantas", ref: "A LA MEDIDA" },
+    ],
+  },
+  {
     id: "kit-electrico",
     name: "Kit Eléctrico",
     tagline: "Lanzamientos NEVO, Deepal, iCAR y Farizon",
     brands: EV,
     items: ["te-661", "te-536", "te-559", "mu-355"],
-  },
-  {
-    id: "kit-carretera",
-    name: "Kit Carretera Segura",
-    tagline: "Prevención con marca para asegurados y flotas",
-    brands: ["seguros", "farizon", "dinissan"],
-    items: ["he-328", "he-280", "il-139", "va-244"],
   },
   {
     id: "kit-asesor",

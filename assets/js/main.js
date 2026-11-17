@@ -112,8 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sty = (p, m) => (p ? ` style="--pos:${p};--pos-m:${m || p}"` : "");
     s.innerHTML = (b.imgDark
       ? `<img class="hero-img hero-img--day" src="${b.img}" alt="${esc(b.name)}"${sty(b.pos, b.posM)} /><img class="hero-img hero-img--night" src="${b.imgDark}" alt=""${sty(b.posDark || b.pos, b.posDarkM || b.posM)} ${i ? 'loading="lazy"' : ""} />`
-      : `<img src="${b.img}" alt="Ilustración ${esc(b.name)}" />`) + `
-      <div class="hero-slide__tag"><span>${esc(b.tag)}</span></div>`;
+      : `<img src="${b.img}" alt="Ilustración ${esc(b.name)}" />`);
     stage.insertBefore(s, dots);
     const d = document.createElement("button");
     d.setAttribute("aria-label", `Ver ${b.name}`);
