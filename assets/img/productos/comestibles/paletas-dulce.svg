@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gloss" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <g id="pop">
+      <rect x="-7" y="70" width="14" height="300" rx="7" fill="#f3efe6" stroke="#d9d2c2" stroke-width="2"/>
+      <circle r="105" style="fill:var(--c1)"/>
+      <path d="M0 0 m-90 -10 a90 90 0 0 1 180 0 a70 70 0 0 1 -140 0 a50 50 0 0 1 100 0 a30 30 0 0 1 -60 0" style="fill:none;stroke:var(--c2)" stroke-width="20" stroke-linecap="round"/>
+      <circle r="105" fill="url(#gloss)"/>
+      <circle r="112" fill="#ffffff" opacity=".18" stroke="#ffffff" stroke-opacity=".55" stroke-width="3"/>
+      <rect x="-62" y="-26" width="124" height="52" rx="26" fill="#00205b"/>
+      <text x="0" y="9" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="24" fill="#fce300">TU LOGO</text>
+    </g>
+  </defs>
+  <rect width="800" height="800" fill="#ffffff"/>
+  <ellipse cx="400" cy="690" rx="290" ry="30" fill="url(#sh)"/>
+  <use href="#pop" transform="translate(220 360) rotate(-14)" style="--c1:#ff6b6b;--c2:#ffe0e0"/>
+  <use href="#pop" transform="translate(580 360) rotate(14)" style="--c1:#5ec8ff;--c2:#e2f5ff"/>
+  <use href="#pop" transform="translate(400 300)" style="--c1:#fce300;--c2:#fff7b8"/>
+</svg>

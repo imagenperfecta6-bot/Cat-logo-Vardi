@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const itemOf = (l) => (l.type === "kit" ? kitById(l.id) : l.type === "work" ? workById(l.id) : productById(l.id));
   const catById = (id) => CATEGORIES.find((c) => c.id === id);
   const companyById = (id) => COMPANIES.find((c) => c.id === id);
-  const imgOf = (p) => `assets/img/productos/${p.id}.jpg`;
+  const imgOf = (p) => (p && p.img) || `assets/img/productos/${p.id}.jpg`;
   const minQty = (p) => (p && p.minQty) || DEFAULT_MIN_QTY;
   const parseColors = (s) => (s || "").split("|").filter(Boolean).map((c) => { const [name, hex] = c.split(":"); return { name, hex }; });
   const swatchesHTML = (s) => parseColors(s).map((c) => `<span class="swatch" style="background:${esc(c.hex)}" title="${esc(c.name)}"></span>`).join("");
@@ -191,11 +191,11 @@ document.addEventListener("DOMContentLoaded", () => {
   $("#kitGrid").innerHTML = KITS.map((k) => {
     const items = k.items.map(productById).filter(Boolean);
     return `<article class="kit reveal">
-      <div class="kit__mosaic">${items.slice(0, 4).map((p) => `<img src="${imgOf(p)}" alt="" loading="lazy" />`).join("")}</div>
+      ${k.photo ? `<div class="kit__photo"><img src="${k.photo}" alt="${esc(k.name)}" loading="lazy" /></div>` : `<div class="kit__mosaic">${items.slice(0, 4).map((p) => `<img src="${imgOf(p)}" alt="" loading="lazy" />`).join("")}</div>`}
       <div class="kit__body">
         <h3>${esc(k.name)}</h3>
         <p>${esc(k.tagline)}</p>
-        <ul>${items.map((p) => `<li>${esc(p.name)}</li>`).join("")}</ul>
+        <ul>${(k.contents || items).map((p) => `<li>${esc(p.name)}</li>`).join("")}</ul>
         <button class="btn btn--navy" data-add-kit="${k.id}">+ Agregar kit</button>
       </div>
     </article>`;
@@ -481,7 +481,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const isKit = l.type === "kit";
       const isWork = l.type === "work";
       const item = itemOf(l);
-      const img = isKit
+      const img = isKit && item.photo
+        ? `<img class="line__img" src="${item.photo}" alt="" />`
+        : isKit
         ? `<div class="line__img line__img--kit">${item.items.slice(0, 4).map((pid) => `<img src="${imgOf(productById(pid))}" alt="" />`).join("")}</div>`
         : isWork
           ? (item.img ? `<img class="line__img" src="${workImg(item)}" alt="" />` : `<div class="line__img line__img--ph">🔁</div>`)
@@ -490,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ${img}
         <div>
           <h4>${isWork ? "Volver a pedir: " : ""}${esc(item.name)}</h4>
-          <small>${isKit ? `Kit · ${item.items.length} productos` : `REF ${esc(item.ref)}${isWork ? " · " + esc(item.technique) : ""}`}</small>
+          <small>${isKit ? `Kit · ${(item.contents || item.items).length} productos` : `REF ${esc(item.ref)}${isWork ? " · " + esc(item.technique) : ""}`}</small>
           ${isWork ? `<small>Logo: ${esc(item.brandName)}</small>` : ""}
           <div class="qty">
             <button data-dec aria-label="Menos">−</button>
@@ -650,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const item = itemOf(l);
       if (l.type === "work") return `${i + 1}. VOLVER A PEDIR: ${item.name} (REF ${item.ref}) — ${l.qty} und. — ${item.technique} — Logo: ${item.brandName}`;
       const head = `${i + 1}. ${isKit ? item.name.toUpperCase() : item.name + " (REF " + item.ref + ")"} — ${l.qty} und.${brandById(l.brand) ? " — Logo: " + brandById(l.brand).name : ""}`;
-      return isKit ? `${head}\n   Incluye: ${item.items.map((pid) => { const p = productById(pid); return `${p.name} (${p.ref})`; }).join(", ")}` : head;
+      return isKit ? `${head}\n   Incluye: ${(item.contents || item.items.map(productById)).map((p) => `${p.name} (${p.ref})`).join(", ")}` : head;
     });
     return [
       `Hola${advisor ? " " + advisor.name : ""},`,

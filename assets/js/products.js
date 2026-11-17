@@ -229,7 +229,17 @@ const KITS = [
     name: "Kit Estreno",
     tagline: "Para entregar con las llaves del vehículo nuevo",
     brands: PASSENGER,
-    items: ["ml-188", "so-74", "cp-203", "te-595"],
+    // Kit 1 armado (foto real del kit). items = productos del catálogo que lo componen; contents = lo que se ve en la foto
+    photo: "assets/img/kits/kit-estreno.jpg",
+    items: ["ml-188", "cp-203", "ml-182", "mu-355"],
+    contents: [
+      { name: "Bolsa tote en lona con manijas", ref: "A LA MEDIDA" },
+      { name: "Toalla en microfibra multiusos", ref: "CP-203" },
+      { name: "Tarjetero con cierre y argolla", ref: "ML-182" },
+      { name: "Llavero metálico en forma de carro", ref: "ML-188" },
+      { name: "Botella térmica metálica con asa", ref: "MU-355" },
+      { name: "Medidor digital de presión de llantas", ref: "A LA MEDIDA" },
+    ],
   },
   {
     id: "kit-electrico",
@@ -362,11 +372,11 @@ PRODUCTS.unshift(
 
 // Aguas, chocolates y dulces (fotos del catálogo Automotriz de IP7; proveedor Colflex / Mer-te)
 PRODUCTS.push(
-  { id: "agua-personalizada", ref: "AGUA", name: "Agua personalizada", category: "comestibles", brands: ALL, minQty: 200, colors: "", why: "Botellas de agua con etiqueta de la marca, para vitrinas, test drives y eventos. Varias referencias y tamaños.", custom: true },
-  { id: "chocolates-personalizados", ref: "CHOCOLATES", name: "Chocolates personalizados", category: "comestibles", brands: ALL, minQty: 1000, colors: "", why: "Chocolates con empaque de la marca, un detalle dulce para entregas de vehículo y clientes VIP.", custom: true },
-  { id: "paletas-dulce", ref: "PALETAS", name: "Paletas de dulce", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Paletas personalizadas, un detalle colorido para ferias, vitrinas y eventos familiares.", custom: true },
-  { id: "dulces-blandos", ref: "DULCE BLANDO", name: "Dulces blandos", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Surtido de dulces blandos con empaque de la marca, para la sala de espera y el punto de atención.", custom: true },
-  { id: "dulces-duros", ref: "DULCE DURO", name: "Dulces duros", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Dulces duros individuales con la marca, un clásico para recepción, posventa y entregas.", custom: true },
-  { id: "gomas-gomitas", ref: "GOMAS", name: "Gomas y gomitas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Gomas de mascar y gomitas surtidas en empaque personalizado, un detalle fresco para el viaje.", custom: true },
-  { id: "mentas-personalizadas", ref: "MENTAS", name: "Mentas personalizadas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Mentas individuales con la marca, ideales para el carro, la vitrina y el test drive.", custom: true },
+  { id: "agua-personalizada", img: "assets/img/productos/comestibles/agua-personalizada.svg", ref: "AGUA", name: "Agua personalizada", category: "comestibles", brands: ALL, minQty: 200, colors: "", why: "Botellas de agua con etiqueta de la marca, para vitrinas, test drives y eventos. Varias referencias y tamaños.", custom: true },
+  { id: "chocolates-personalizados", img: "assets/img/productos/comestibles/chocolates-personalizados.svg", ref: "CHOCOLATES", name: "Chocolates personalizados", category: "comestibles", brands: ALL, minQty: 1000, colors: "", why: "Chocolates con empaque de la marca, un detalle dulce para entregas de vehículo y clientes VIP.", custom: true },
+  { id: "paletas-dulce", img: "assets/img/productos/comestibles/paletas-dulce.svg", ref: "PALETAS", name: "Paletas de dulce", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Paletas personalizadas, un detalle colorido para ferias, vitrinas y eventos familiares.", custom: true },
+  { id: "dulces-blandos", img: "assets/img/productos/comestibles/dulces-blandos.svg", ref: "DULCE BLANDO", name: "Dulces blandos", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Surtido de dulces blandos con empaque de la marca, para la sala de espera y el punto de atención.", custom: true },
+  { id: "dulces-duros", img: "assets/img/productos/comestibles/dulces-duros.svg", ref: "DULCE DURO", name: "Dulces duros", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Dulces duros individuales con la marca, un clásico para recepción, posventa y entregas.", custom: true },
+  { id: "gomas-gomitas", img: "assets/img/productos/comestibles/gomas-gomitas.svg", ref: "GOMAS", name: "Gomas y gomitas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Gomas de mascar y gomitas surtidas en empaque personalizado, un detalle fresco para el viaje.", custom: true },
+  { id: "mentas-personalizadas", img: "assets/img/productos/comestibles/mentas-personalizadas.svg", ref: "MENTAS", name: "Mentas personalizadas", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Mentas individuales con la marca, ideales para el carro, la vitrina y el test drive.", custom: true },
 );
