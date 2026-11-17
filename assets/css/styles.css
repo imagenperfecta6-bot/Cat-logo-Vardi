@@ -678,3 +678,6 @@ html:not([data-theme="dark"]) .more__card:hover { border-color: var(--yellow); b
 .kit__photo { aspect-ratio: 1; background: #f4f1ec; overflow: hidden; }
 .kit__photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
 .kit:hover .kit__photo img { transform: scale(1.03); }
+
+/* Alianzas: encabezado centrado */
+#alianzas .section__head { margin-left: auto; margin-right: auto; text-align: center; }
