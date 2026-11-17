@@ -262,6 +262,22 @@ const KITS = [
     ],
   },
   {
+    id: "kit-conductor",
+    name: "Kit Conductor",
+    tagline: "Comodidad y seguridad para el día a día en el carro",
+    brands: ALL,
+    // Kit 3 armado (foto real del kit)
+    photo: "assets/img/kits/kit-conductor.jpg",
+    items: ["cap-26", "so-74", "ho-235", "he-328", "te-579"],
+    contents: [
+      { name: "Gorra mesh", ref: "CAP-26" },
+      { name: "Protector solar para parabrisas con estuche", ref: "SO-74" },
+      { name: "Aspiradora inalámbrica para carro", ref: "HO-235" },
+      { name: "Luz de emergencia V16 magnética", ref: "HE-328" },
+      { name: "Soporte de celular para rejilla", ref: "TE-579" },
+    ],
+  },
+  {
     id: "kit-electrico",
     name: "Kit Eléctrico",
     tagline: "Lanzamientos NEVO, Deepal, iCAR y Farizon",
@@ -385,8 +401,8 @@ PRODUCTS.unshift(
 
 // Aguas, chocolates y dulces (fotos del catálogo Automotriz de IP7; proveedor Colflex / Mer-te)
 PRODUCTS.push(
-  { id: "agua-personalizada", img: "assets/img/productos/comestibles/agua-personalizada.svg", ref: "AGUA", name: "Agua personalizada", category: "comestibles", brands: ALL, minQty: 200, colors: "", why: "Botellas de agua con etiqueta de la marca, para vitrinas, test drives y eventos. Varias referencias y tamaños.", custom: true },
-  { id: "chocolates-personalizados", img: "assets/img/productos/comestibles/chocolates-personalizados.svg", ref: "CHOCOLATES", name: "Chocolates personalizados", category: "comestibles", brands: ALL, minQty: 1000, colors: "", why: "Chocolates con empaque de la marca, un detalle dulce para entregas de vehículo y clientes VIP.", custom: true },
+  { id: "agua-personalizada", img: "assets/img/productos/comestibles/agua-personalizada.jpg", ref: "AGUA", name: "Agua personalizada", category: "comestibles", brands: ALL, minQty: 200, colors: "", why: "Botellas de agua con etiqueta de la marca, para vitrinas, test drives y eventos. Varias referencias y tamaños.", custom: true },
+  { id: "chocolates-personalizados", img: "assets/img/productos/comestibles/chocolates-personalizados.jpg", ref: "CHOCOLATES", name: "Chocolates personalizados", category: "comestibles", brands: ALL, minQty: 1000, colors: "", why: "Chocolates con empaque de la marca, un detalle dulce para entregas de vehículo y clientes VIP.", custom: true },
   { id: "paletas-dulce", img: "assets/img/productos/comestibles/paletas-dulce.svg", ref: "PALETAS", name: "Paletas de dulce", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Paletas personalizadas, un detalle colorido para ferias, vitrinas y eventos familiares.", custom: true },
   { id: "dulces-blandos", img: "assets/img/productos/comestibles/dulces-blandos.svg", ref: "DULCE BLANDO", name: "Dulces blandos", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Surtido de dulces blandos con empaque de la marca, para la sala de espera y el punto de atención.", custom: true },
   { id: "dulces-duros", img: "assets/img/productos/comestibles/dulces-duros.svg", ref: "DULCE DURO", name: "Dulces duros", category: "comestibles", brands: ALL, minQty: 3000, colors: "", why: "Dulces duros individuales con la marca, un clásico para recepción, posventa y entregas.", custom: true },
