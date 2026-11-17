@@ -98,15 +98,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const stage = $("#heroStage");
   const dots = $("#heroDots");
   const HERO_ART = [
+    // foto real: versión de día (Luces altas) y de noche (Luces bajas)
+    { img: "assets/img/portada/foto-1-dia.jpg", imgDark: "assets/img/portada/foto-1-noche.jpg", pos: "74% 50%", name: "Camioneta en ruta", tag: "Lanzamientos y test drive" },
     { img: "assets/img/portada/sedan.svg", name: "Sedán", tag: "Entregas de vehículo" },
-    { img: "assets/img/portada/suv.svg", name: "SUV", tag: "Lanzamientos y test drive" },
     { img: "assets/img/portada/electrico.svg", name: "Eléctrico", tag: "Movilidad eléctrica" },
     { img: "assets/img/portada/pickup.svg", name: "Pick-up", tag: "Posventa y flotas" },
   ];
   HERO_ART.forEach((b, i) => {
     const s = document.createElement("div");
     s.className = `hero-slide${i === 0 ? " is-active" : ""}`;
-    s.innerHTML = `<img src="${b.img}" alt="Ilustración ${esc(b.name)}" />
+    const pos = b.pos ? ` style="object-position:${b.pos}"` : "";
+    s.innerHTML = (b.imgDark
+      ? `<img class="hero-img hero-img--day" src="${b.img}" alt="${esc(b.name)}"${pos} /><img class="hero-img hero-img--night" src="${b.imgDark}" alt=""${pos} />`
+      : `<img src="${b.img}" alt="Ilustración ${esc(b.name)}" />`) + `
       <div class="hero-slide__tag"><span>${esc(b.tag)}</span></div>`;
     stage.insertBefore(s, dots);
     const d = document.createElement("button");

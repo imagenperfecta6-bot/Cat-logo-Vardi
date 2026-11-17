@@ -622,3 +622,9 @@ html:not([data-theme="dark"]) .more__card:hover { border-color: var(--yellow); b
 }
 /* el carro de los botones de cotización mira hacia la derecha */
 .cart-fab .car-ic, .cart-btn .car-ic { transform: scaleX(-1); }
+
+/* Portada con foto de día (Luces altas) y de noche (Luces bajas) */
+.hero-slide > .hero-img { position: absolute; inset: 0; transition: opacity .7s ease, transform 6s ease; }
+.hero-slide > .hero-img--night { opacity: 0; }
+[data-theme="dark"] .hero-slide > .hero-img--day { opacity: 0; }
+[data-theme="dark"] .hero-slide > .hero-img--night { opacity: 1; }
