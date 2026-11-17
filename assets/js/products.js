@@ -278,6 +278,21 @@ const KITS = [
     ],
   },
   {
+    id: "kit-ejecutivo",
+    name: "Kit Ejecutivo",
+    tagline: "Caja de regalo para clientes VIP, gerentes y aliados",
+    brands: ALL,
+    // Kit 4 armado (foto real del kit)
+    photo: "assets/img/kits/kit-ejecutivo.jpg",
+    items: ["of-726", "metal-tw", "mu-380"],
+    contents: [
+      { name: "Caja de regalo rígida negra con inserto", ref: "A LA MEDIDA" },
+      { name: "Libreta ejecutiva tapa dura con placa metálica", ref: "A LA MEDIDA" },
+      { name: "Bolígrafo metálico", ref: "A LA MEDIDA" },
+      { name: "Vaso térmico metálico con tapa", ref: "A LA MEDIDA" },
+    ],
+  },
+  {
     id: "kit-electrico",
     name: "Kit Eléctrico",
     tagline: "Lanzamientos NEVO, Deepal, iCAR y Farizon",
