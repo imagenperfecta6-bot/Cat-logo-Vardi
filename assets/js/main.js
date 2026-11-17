@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { img: "assets/img/portada/foto-1-dia.jpg", imgDark: "assets/img/portada/foto-1-noche.jpg", pos: "74% 50%", posM: "85.5% 50%", name: "Camioneta en ruta", tag: "Lanzamientos y test drive" },
     { img: "assets/img/portada/foto-3-dia.jpg", imgDark: "assets/img/portada/foto-3-noche.jpg", pos: "50% 50%", posM: "50% 50%", name: "Camioneta en la plaza", tag: "Entregas de vehículo" },
     { img: "assets/img/portada/foto-2-dia.jpg", imgDark: "assets/img/portada/foto-2-noche.jpg", pos: "50% 62%", posM: "50% 62%", posDark: "58% 50%", posDarkM: "56% 50%", name: "Cargadora en obra", tag: "Maquinaria y flotas" },
-    { img: "assets/img/portada/electrico.svg", name: "Eléctrico", tag: "Movilidad eléctrica" },
+    { img: "assets/img/portada/foto-4-dia.jpg", imgDark: "assets/img/portada/foto-4-noche.jpg", pos: "47% 50%", posM: "47% 50%", posDark: "50% 50%", posDarkM: "50% 50%", name: "Van eléctrica en bodega", tag: "Movilidad eléctrica y flotas" },
   ];
   HERO_ART.forEach((b, i) => {
     const s = document.createElement("div");
