@@ -654,3 +654,22 @@ html:not([data-theme="dark"]) .more__card:hover { border-color: var(--yellow); b
 }
 .hero-slide > .hero-img { object-position: var(--pos, 50% 50%); }
 @media (max-width: 640px) { .hero-slide > .hero-img { object-position: var(--pos-m, var(--pos, 50% 50%)); } }
+
+/* Franja de logos: se puede deslizar/arrastrar (la mueve main.js) */
+.logo-strip.is-js { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; -webkit-overflow-scrolling: touch; }
+.logo-strip.is-js::-webkit-scrollbar { display: none; }
+.logo-strip.is-js:active { cursor: grabbing; }
+.logo-strip.is-js .logo-strip__track { animation: none; padding: 0 20px; }
+.logo-strip.is-js img { -webkit-user-drag: none; user-select: none; pointer-events: none; }
+@media (max-width: 640px) { .logo-strip__track { gap: 44px; } .logo-strip { padding: 18px 0; } }
+
+/* Entrada en celular (pantalla vertical): el vehículo cabe completo en el ancho */
+@media (orientation: portrait) {
+  .splash-fg { --s: 100vw; }
+  .splash-fgwrap { transform: translateX(-4vw); }
+  @keyframes fgDriveP { from { transform: translateX(-4vw) scale(1); } to { transform: translateX(4vw) scale(1.04); } }
+  #splash.is-playing .splash-fgwrap { animation-name: fgDriveP; }
+}
+
+/* Formulario: el campo de fecha no se sale del recuadro en iPhone */
+.quote-form input[type="date"], form input[type="date"] { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; -webkit-appearance: none; appearance: none; display: block; }

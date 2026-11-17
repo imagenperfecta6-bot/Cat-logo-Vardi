@@ -136,6 +136,30 @@ document.addEventListener("DOMContentLoaded", () => {
   if (track) {
     const logos = BRANDS.map((b) => `<a href="${b.url}" target="_blank" rel="noopener" title="${esc(b.name)}"><img src="${b.logo}" alt="${esc(b.name)}" />${b.logoLabel ? `<span class="logo-label">${b.logoLabel}</span>` : ""}</a>`).join("");
     track.innerHTML = logos + logos;
+    // se mueve solo, pero también se puede deslizar con el dedo o arrastrar con el mouse
+    const strip = track.parentElement;
+    strip.classList.add("is-js");
+    let paused = false, resumeT = 0, dragging = false, startX = 0, startLeft = 0, moved = false, last = 0, acc = 0;
+    const half = () => track.scrollWidth / 2;
+    const wrap = () => { const h = half(); if (h > 0) { if (strip.scrollLeft >= h) strip.scrollLeft -= h; else if (strip.scrollLeft <= 0) strip.scrollLeft += h; } };
+    const pause = () => { paused = true; clearTimeout(resumeT); };
+    const resume = (ms) => { clearTimeout(resumeT); resumeT = setTimeout(() => { paused = false; }, ms); };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const tick = (t) => {
+      const dt = last ? Math.min(64, t - last) : 16; last = t;
+      if (!paused && !reduceMotion) { acc += dt * 0.045; const px = Math.floor(acc); if (px) { strip.scrollLeft += px; acc -= px; wrap(); } }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    strip.addEventListener("touchstart", pause, { passive: true });
+    strip.addEventListener("touchend", () => { wrap(); resume(2500); }, { passive: true });
+    strip.addEventListener("scroll", () => { if (paused) wrap(); }, { passive: true });
+    strip.addEventListener("mouseenter", pause);
+    strip.addEventListener("mouseleave", () => { dragging = false; resume(600); });
+    strip.addEventListener("mousedown", (e) => { dragging = true; moved = false; startX = e.clientX; startLeft = strip.scrollLeft; e.preventDefault(); });
+    window.addEventListener("mousemove", (e) => { if (!dragging) return; const dx = e.clientX - startX; if (Math.abs(dx) > 4) moved = true; strip.scrollLeft = startLeft - dx; wrap(); });
+    window.addEventListener("mouseup", () => { dragging = false; });
+    strip.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
   }
 
 
@@ -415,7 +439,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = $("#cartBtn"); btn.classList.remove("bump"); void btn.offsetWidth; btn.classList.add("bump"); const fab = $("#cartFab"); fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump");
     const bn = type === "work" ? { name: item.brandName } : brandById(brand);
     showToast(`${item.name} agregado${bn ? ` · logo ${bn.name}` : ""}`);
+    honk();
   };
+
+  // pito de carro ("pi-pip") al agregar a la cotización, hecho con Web Audio (sin archivos)
+  let audioCtx = null;
+  function honk() {
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      const now = audioCtx.currentTime;
+      const out = audioCtx.createGain(); out.gain.value = 0.16;
+      const lp = audioCtx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1700;
+      lp.connect(out); out.connect(audioCtx.destination);
+      [[0, 0.13], [0.19, 0.24]].forEach(([start, len]) => {
+        const g = audioCtx.createGain(); g.connect(lp);
+        g.gain.setValueAtTime(0.0001, now + start);
+        g.gain.exponentialRampToValueAtTime(1, now + start + 0.015);
+        g.gain.setValueAtTime(1, now + start + len - 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + start + len);
+        [392, 494].forEach((f) => { // acorde de bocina de dos tonos
+          const o = audioCtx.createOscillator(); o.type = "sawtooth"; o.frequency.value = f;
+          o.connect(g); o.start(now + start); o.stop(now + start + len + 0.02);
+        });
+      });
+    } catch (e) { /* sin sonido si el navegador no lo permite */ }
+  }
 
   // marca por defecto al agregar: la del filtro activo (si el producto le sirve) o la primera de su lista
   const defaultBrand = (brands) => (state.brand !== "all" && brands.includes(state.brand) ? state.brand : brands[0]);
@@ -613,7 +662,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `Correo: ${d.correo}`,
       `Teléfono: ${d.telefono}`,
       d.ciudad ? `Ciudad / vitrina: ${d.ciudad}` : "",
-      d.fecha ? `Fecha requerida: ${d.fecha}` : "",
+      d.fecha ? `Fecha estimada de entrega: ${d.fecha}` : "",
       "",
       "PRODUCTOS:",
       ...lines,
