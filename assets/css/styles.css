@@ -620,8 +620,8 @@ html:not([data-theme="dark"]) .more__card:hover { border-color: var(--yellow); b
   .cart-btn { padding: 7px 10px; gap: 6px; }
   .lights__opt { padding: 6px 8px; }
 }
-/* el carro de los botones de cotización mira hacia la derecha */
-.cart-fab .car-ic, .cart-btn .car-ic { transform: scaleX(-1); }
+/* la camioneta de los botones ya mira a la derecha (sin voltear) */
+.cart-fab .car-ic, .cart-btn .car-ic { transform: none; }
 
 /* Portada con foto de día (Luces altas) y de noche (Luces bajas) */
 .hero-slide > .hero-img { position: absolute; inset: 0; transition: opacity .7s ease, transform 6s ease; }
