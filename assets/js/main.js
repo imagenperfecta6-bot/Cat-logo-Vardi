@@ -98,18 +98,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const stage = $("#heroStage");
   const dots = $("#heroDots");
   const HERO_ART = [
-    // foto real: versión de día (Luces altas) y de noche (Luces bajas)
-    { img: "assets/img/portada/foto-1-dia.jpg", imgDark: "assets/img/portada/foto-1-noche.jpg", pos: "74% 50%", name: "Camioneta en ruta", tag: "Lanzamientos y test drive" },
-    { img: "assets/img/portada/sedan.svg", name: "Sedán", tag: "Entregas de vehículo" },
+    // fotos reales: versión de día (Luces altas) y de noche (Luces bajas).
+    // pos = encuadre en computador, posM = en celular; posDark/posDarkM si la foto de noche va distinta
+    { img: "assets/img/portada/foto-1-dia.jpg", imgDark: "assets/img/portada/foto-1-noche.jpg", pos: "74% 50%", posM: "85.5% 50%", name: "Camioneta en ruta", tag: "Lanzamientos y test drive" },
+    { img: "assets/img/portada/foto-3-dia.jpg", imgDark: "assets/img/portada/foto-3-noche.jpg", pos: "50% 50%", posM: "50% 50%", name: "Camioneta en la plaza", tag: "Entregas de vehículo" },
+    { img: "assets/img/portada/foto-2-dia.jpg", imgDark: "assets/img/portada/foto-2-noche.jpg", pos: "50% 62%", posM: "50% 62%", posDark: "58% 50%", posDarkM: "56% 50%", name: "Cargadora en obra", tag: "Maquinaria y flotas" },
     { img: "assets/img/portada/electrico.svg", name: "Eléctrico", tag: "Movilidad eléctrica" },
-    { img: "assets/img/portada/pickup.svg", name: "Pick-up", tag: "Posventa y flotas" },
   ];
   HERO_ART.forEach((b, i) => {
     const s = document.createElement("div");
     s.className = `hero-slide${i === 0 ? " is-active" : ""}`;
-    const pos = b.pos ? ` style="object-position:${b.pos}"` : "";
+    const sty = (p, m) => (p ? ` style="--pos:${p};--pos-m:${m || p}"` : "");
     s.innerHTML = (b.imgDark
-      ? `<img class="hero-img hero-img--day" src="${b.img}" alt="${esc(b.name)}"${pos} /><img class="hero-img hero-img--night" src="${b.imgDark}" alt=""${pos} />`
+      ? `<img class="hero-img hero-img--day" src="${b.img}" alt="${esc(b.name)}"${sty(b.pos, b.posM)} /><img class="hero-img hero-img--night" src="${b.imgDark}" alt=""${sty(b.posDark || b.pos, b.posDarkM || b.posM)} ${i ? 'loading="lazy"' : ""} />`
       : `<img src="${b.img}" alt="Ilustración ${esc(b.name)}" />`) + `
       <div class="hero-slide__tag"><span>${esc(b.tag)}</span></div>`;
     stage.insertBefore(s, dots);
