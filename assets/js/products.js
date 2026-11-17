@@ -292,20 +292,6 @@ const KITS = [
       { name: "Vaso térmico metálico con tapa", ref: "A LA MEDIDA" },
     ],
   },
-  {
-    id: "kit-electrico",
-    name: "Kit Eléctrico",
-    tagline: "Lanzamientos NEVO, Deepal, iCAR y Farizon",
-    brands: EV,
-    items: ["te-661", "te-536", "te-559", "mu-355"],
-  },
-  {
-    id: "kit-asesor",
-    name: "Kit Asesor Vardí",
-    tagline: "Dotación para el equipo comercial y de posventa",
-    brands: ALL,
-    items: ["va-1118", "mu-380", "cap-34", "te-08-1"],
-  },
 ];
 
 /* ---- Productos de ip7.cataprom.com (sin marca, inventario 2026-11-04) ---- */
